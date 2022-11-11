@@ -1,1 +1,5 @@
-com\id1212\l1\L1.class
+client/ChatClient.class
+server/ClientHandler.class
+client/ReceiveMsgHandler.class
+server/ChatServer.class
+client/SendMsgHandler.class
