@@ -16,3 +16,19 @@ Testa att programmet verkligen fungerar genom att skapa en server och två klien
 Installera en nätverkssniffer (förslag Wireshark), spela in lite trafik från din chatt. Frågor
 * Vad betyder TCP-headers i datagrammen?
 * Vad betyder flaggorna ACK/SYN/SEQ/PSH/FIN?
+
+## Extrauppgift svar
+* 1:    Source port är själva porten där TCP paketet skickas ifrån. Denna är slumpad. 
+        Destination port är porten som programmet lyssnar via och tar emot TCP paket.
+        Sequence number indikerar på hur många paket som har skickats och tagits emot. Detta är till för att kolla om något paket har kommit i fel ordning eller ej kommit fram överhuvudtaget.
+        Acknowledgement number är endast om flaggan är ACK så kommer detta nummer vara Sequence number som sändaren av paketet kommer att förvänta.
+        Flags är nio bitar för kontroll. Varje bit representerar en flagga.
+        Window size är själv storleken på receive window som skickaren av detta paket förväntar sig.
+        Checksum används för error-checking.
+        Urgent pointer indikerar "last urgent data byte" om URG flaggan finns med.
+        Options vars längd beror på data offset field. 
+* 2:    ACK används för bekräftning av att mottagaren har tagit emot ett paket.
+        SYN används för att markera en påbörjning av en "three way handshake". Används vid skickandet av första TCP paketet.
+        SEQ Sequence number indikerar på hur många paket som har skickats och tagits emot / storleken av dessa paket. Detta är till för att kolla om något paket har kommit i fel ordning eller inte kommit fram alls.
+        PSH talar om för mottagaren om denna ska processa paketen som de mottags eller buffera dem.
+        FIN indikerar om anslutningen ska avslutas.
