@@ -1,67 +1,110 @@
 package server;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.ArrayList;
 
 /**
  *
  * @author Fredrik Lundström & Anders Söderlund
  */
-public class Controller {
-
+public class Controller extends Thread {
+    //String previousResponse;
     private static int BUFFERSIZE = 1024;
+    Socket clientSocket;
+    
+    public Controller(Socket clientSocket){
+        this.clientSocket = clientSocket;
+    }
 
-    public static void main(String[] args) {
-        int counter = 0;
-        try {
-            System.out.println("Starting server...");
-            ServerSocket serverSocket = new ServerSocket(80);
-            while (true) {
-                Socket clientSocket = serverSocket.accept();
-
-                byte buffer[] = new byte[BUFFERSIZE];
+    @Override
+    public void run(){
+        try{
                 InputStream is = clientSocket.getInputStream();
+                OutputStream os = clientSocket.getOutputStream();
+
+                // Get request
+                byte buffer[] = new byte[BUFFERSIZE];
                 is.read(buffer);
                 String request = new String(buffer, StandardCharsets.UTF_8);
-                
-                System.out.println(request);
                 String[] headers = request.split("\r\n");
-                String getLine = headers[0];
+                //System.out.println(request);
 
-                String sessionId = "session" + counter;
+                int guess = 101;
+                if (!request.contains("favicon.ico")) {
+                    if (!request.contains("sessionId")) {
+                        String sessionId = "session" + Main.counter;
+                        Main.counter++;
+                        Model model = new Model(sessionId, guess);
+                        Main.models.add(model);
+                        View view = new View(model);
+                        String response = view.generateHTTPResponse(true);
+                        //this.previousResponse = response;
+                        os.write(response.getBytes());
+                    } else {
+                        String getLine = headers[0];
+                        boolean startpage = false;
+                        // Hämta gissning
+                        if (!getLine.contains("guess")) {
+                            startpage = true;
+                        } else {
+                            String[] getLineArray = getLine.split(" ");
+                            String path = getLineArray[1];
+                            if (path.split("=").length > 1) {
+                                guess = Integer.parseInt(path.split("=")[1]);
+                            } else {
+                                startpage = true;
+                            }
+                        }
 
-                Model model = new Model(sessionId);
+                        // Hämta session id
+                        String sessionId = headers[headers.length - 3].split("=")[1];
+                        Model model = new Model(sessionId, guess);
+                        
+                        // Special case
+                        // Samma webbläsare sparar cookien och om man då startar om servern så är sparade modeller borta.
+                        // Då behöver vi alltså göra en ny model.
+                        // Detta gäller också när vi har gissat rätt och behöver då lägga in en ny model eftersom vi tar bort den gamla.
+                        if(Main.models.isEmpty()){
+                            Main.models.add(model);
+                        }
+                        
+                        for (Model m : Main.models) {
+                            if (m.sessionId.equals(sessionId)) {
+                                //System.out.println("Found model. Number: " + m.number);
+                                model = m;
+                                break;
+                            }
+                        }
+                        
+                        model.setGuess(guess);
+                        
+                        // Om vi inte är på startsidan så ska vi lägga till en gissning.
+                        if(!startpage){
+                            model.iterateNrOfGuesses();
+                        }
+                        
+                        System.out.println(model.sessionId + " , gissning: " + model.guess + " , nummer: " + model.number + " ,antal gissningar: " + model.nrOfGuesses);
+                        
+                        View view = new View(model);
+                        String response = view.generateHTTPResponse(startpage);
+                        //this.previousResponse = response;
+                        os.write(response.getBytes());
+                        
+                        if(guess == model.number){
+                            Main.models.remove(model);
+                        }
+                    }
+                } //else { // Om favicon.ico finns så kommer det att finnas en session/model.
+                    //os.write(this.previousResponse.getBytes());
+                //}
 
-                FileInputStream fis = new FileInputStream("C:/Users/myfre/OneDrive/KTH/ID1212 (Nätverksprogrammering)/ID1212-Network-Programming/L2/src/main/java/server/index.html");
-                StringBuilder sb = new StringBuilder();
-                int c;
-                while((c = fis.read()) != -1){
-                    sb.append((char) c);
-                }
-                
-                OutputStream os = clientSocket.getOutputStream();
-                os.write(("HTTP/1.1 200 OK\r\n").getBytes());
-                os.write(("Set-Cookie: sessionId=" + sessionId + "\r\n").getBytes());
-                os.write(("\r\n").getBytes());
-                os.write(sb.toString().getBytes());
-                os.write(("\r\n\r\n").getBytes());
                 os.flush();
-
-                if (!getLine.contains("favicon.ico")) {
-                    counter++;
-                }
-                
-                clientSocket.close();
-            }
-        } catch (IOException e) {
+                this.clientSocket.close();
+        } catch(IOException e){
             System.out.println(e.getMessage());
         }
     }
