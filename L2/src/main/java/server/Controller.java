@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 
 /**
  *
@@ -30,6 +29,7 @@ public class Controller extends Thread {
                 byte buffer[] = new byte[BUFFERSIZE];
                 is.read(buffer);
                 String request = new String(buffer, StandardCharsets.UTF_8);
+                System.out.println(request);
                 String[] headers = request.split("\r\n");
                 //System.out.println(request);
 
@@ -42,11 +42,13 @@ public class Controller extends Thread {
                         Main.models.add(model);
                         View view = new View(model);
                         String response = view.generateHTTPResponse(true);
+                        
                         //this.previousResponse = response;
                         os.write(response.getBytes());
                     } else {
                         String getLine = headers[0];
                         boolean startpage = false;
+                        
                         // Hämta gissning
                         if (!getLine.contains("guess")) {
                             startpage = true;
@@ -61,7 +63,8 @@ public class Controller extends Thread {
                         }
 
                         // Hämta session id
-                        String sessionId = headers[headers.length - 3].split("=")[1];
+                        //String sessionId = headers[headers.length - 3].split("=")[1];
+                        String sessionId = request.split("sessionId=")[1].split("\r\n")[0];
                         Model model = new Model(sessionId, guess);
                         
                         // Special case
