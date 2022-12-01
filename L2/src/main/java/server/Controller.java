@@ -31,7 +31,6 @@ public class Controller extends Thread {
                 String request = new String(buffer, StandardCharsets.UTF_8);
                 System.out.println(request);
                 String[] headers = request.split("\r\n");
-                //System.out.println(request);
 
                 int guess = 101;
                 if (!request.contains("favicon.ico")) {
@@ -43,7 +42,6 @@ public class Controller extends Thread {
                         View view = new View(model);
                         String response = view.generateHTTPResponse(true);
                         
-                        //this.previousResponse = response;
                         os.write(response.getBytes());
                     } else {
                         String getLine = headers[0];
@@ -77,7 +75,6 @@ public class Controller extends Thread {
                         
                         for (Model m : Main.models) {
                             if (m.sessionId.equals(sessionId)) {
-                                //System.out.println("Found model. Number: " + m.number);
                                 model = m;
                                 break;
                             }
@@ -94,16 +91,13 @@ public class Controller extends Thread {
                         
                         View view = new View(model);
                         String response = view.generateHTTPResponse(startpage);
-                        //this.previousResponse = response;
                         os.write(response.getBytes());
                         
                         if(guess == model.number){
                             Main.models.remove(model);
                         }
                     }
-                } //else { // Om favicon.ico finns så kommer det att finnas en session/model.
-                    //os.write(this.previousResponse.getBytes());
-                //}
+                }
 
                 os.flush();
                 this.clientSocket.close();

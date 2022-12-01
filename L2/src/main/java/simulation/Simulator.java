@@ -1,6 +1,5 @@
 package simulation;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -25,7 +24,6 @@ public class Simulator {
         String cookie = connection.getHeaderField("Set-Cookie");
 
         for (int i = 0; i < 100; i++) {
-            System.out.println(nrOfGuessesArray.toString());
             int min = 1, max = 100, nrOfGuesses = 0;
 
             while (true) {
@@ -37,10 +35,9 @@ public class Simulator {
                 obj = new URL("http://localhost/?guess=" + number);
                 connection = (HttpURLConnection) obj.openConnection();
                 connection.setRequestMethod("GET");
-                
                 connection.setRequestProperty("Cookie", cookie);
+                
                 int rc = connection.getResponseCode();
-                //System.out.println("i: " + i + " : Response code: " + rc);
 
                 if (rc == HttpURLConnection.HTTP_OK) {
                     InputStream is = connection.getInputStream();
