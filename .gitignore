@@ -1,3 +1,5 @@
+Credentials.java
+
 # Compiled class file
 *.class
 
@@ -22,3 +24,4 @@
 hs_err_pid*
 /L1/L1/target/
 /L2/target/
+/L3/target/
