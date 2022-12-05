@@ -28,7 +28,8 @@ public class SendEmail {
             this.out = new PrintStream(socket.getOutputStream());
             this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             View view = new View(in);
-
+            
+            // Ändra inte till send-funktionen. Hela systemet fallerar.
             out.println("STARTTLS");
             out.flush();
             view.readUntil("Ready");
