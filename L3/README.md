@@ -25,3 +25,10 @@ I det första fallet (IMAP med SSL/TLS) börjar du med en krypterad session och 
 Fullständig dokumentation av IMAP finns i rfc3501 men för att lösa uppgiften räcker det att jämföra med en IMAP-session till exempel den här: https://en.wikipedia.org/wiki/Internet_Message_Access_Protocol Links to an external site.
 
 Inget certifikat behövdes för denna deluppgift
+
+
+## KOMMANDON
+Glöm inte att connecta till https://localhost:8282
+https://sites.google.com/site/ddmwsst/create-your-own-certificate-and-ca
+Förklaring av Alice, Bob, HTTPS, Encryption osv...
+https://www.youtube.com/watch?v=T4Df5_cojAs
