@@ -28,6 +28,9 @@ Inget certifikat behövdes för denna deluppgift
 
 
 ## KOMMANDON
+Generera jks keystore: keytool -genkey -alias Server -keyalg RSA -keystore ServerKeyStore.jks -keysize 2048 -ext "SAN:c=DNS:localhost,IP:127.0.0.1"
+Generera certifikat: keytool -exportcert -keystore ServerKeyStore.jks -alias Server -file certifikat.cer
+
 Glöm inte att connecta till https://localhost:8282
 https://sites.google.com/site/ddmwsst/create-your-own-certificate-and-ca
 Förklaring av Alice, Bob, HTTPS, Encryption osv...
