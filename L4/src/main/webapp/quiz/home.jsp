@@ -8,7 +8,7 @@
         <title>Quiz</title>
     </head>
     <body>
-        <h1>Quizzes</h1>
+        <h1>Available Quizzes</h1>
         <ul>
             <c:forEach var="quiz" items="${quizzes}">
                 <li>

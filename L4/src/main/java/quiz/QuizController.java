@@ -1,19 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package quiz;
 
 import java.io.IOException;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import quiz.entities.Quiz;
 
 /**
  *
- * @author myfre
+ * @author Fredrik Lundström & Anders Söderlund
  */
 @WebServlet(name = "QuizController", urlPatterns = {"/quiz"})
 public class QuizController extends HttpServlet {
@@ -28,9 +31,29 @@ public class QuizController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setAttribute("subject", "Subject");
-        request.getRequestDispatcher("/quiz/quiz.jsp").forward(request, response);
+        HttpSession session = request.getSession();
+        // User will be required to log in each time
+        if (session.getAttribute("username") == null || session.getAttribute("password") == null) {
+            response.sendRedirect("login");
+        } else {
+            String id = request.getParameter("id");
+            if (id == null) {
+                request.getRequestDispatcher("/quiz/quiz.jsp").forward(request, response);
+            } else {
+                EntityManagerFactory emf = Persistence.createEntityManagerFactory("quiz_game");
+                EntityManager em = emf.createEntityManager();
+
+                try {
+                    Quiz result = (Quiz) em.createNativeQuery("SELECT * FROM quiz WHERE id=" + id, Quiz.class).getSingleResult();
+                    request.setAttribute("subject", result.getSubject());
+                    
+                } catch (NoResultException e) {
+                    
+                }
+
+                request.getRequestDispatcher("/quiz/quiz.jsp").forward(request, response);
+            }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

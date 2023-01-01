@@ -6,6 +6,6 @@
         <title>Quiz</title>
     </head>
     <body>
-        <h1>Quiz ${subject}</h1>
+        <h1>${subject}</h1>
     </body>
 </html>

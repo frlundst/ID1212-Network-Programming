@@ -1,0 +1,1 @@
+INSERT INTO question (id, text, options, answer) VALUES (1, "What is a cat?", "A cat,A dog,A bird,A fish", "A cat");
