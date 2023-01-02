@@ -8,15 +8,18 @@
         <title>Quiz</title>
     </head>
     <body>
+        <nav>
+            <a>Home</a>
+            <a href="logout">Logout</a>
+        </nav>
         <h1>Available Quizzes</h1>
         <ul>
             <c:forEach var="quiz" items="${quizzes}">
                 <li>
                     <a href="quiz?id=${quiz.id}">${quiz.subject}</a>
+                    , <a href="results?id=${quiz.id}">Results</a>
                 </li>
             </c:forEach>
         </ul>
-        <br/>
-        <a href="logout">Logout</a>
     </body>
 </html>

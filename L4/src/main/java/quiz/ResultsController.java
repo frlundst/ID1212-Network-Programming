@@ -1,8 +1,10 @@
 package quiz;
 
 import java.io.IOException;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,14 +12,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import quiz.entities.User;
+import quiz.entities.ResultExtended;
 
 /**
  *
- * @author Fredrik Lundström & Anders Söderlund
+ * @author myfre
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/login"})
-public class LoginController extends HttpServlet {
+@WebServlet(name = "ResultController", urlPatterns = {"/results"})
+public class ResultsController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,37 +31,23 @@ public class LoginController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        
-        if(session.getAttribute("username") != null && session.getAttribute("password") != null){
-            response.sendRedirect("home");
-        } else {
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("quiz_game");
-            EntityManager em = emf.createEntityManager();
 
-            String username = request.getParameter("email");
-            String password = request.getParameter("password");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("quiz_game");
+        EntityManager em = emf.createEntityManager();
 
-            if (username != null && password != null) {
-                try {
-                    // If the query does not find any result it will throw a NoResultException
-                    User result = em.createNamedQuery("User.findByUsername", User.class).setParameter("username", username).getSingleResult();
-                    if (result.getPassword().equals(password)) {
-                        session.setAttribute("username", username);
-                        session.setAttribute("password", password);
-                        session.setAttribute("user_id", result.getId());
-                        response.sendRedirect("home");
-                    } else {
-                        throw new Exception();
-                    }
-                } catch (Exception e) {
-                    request.setAttribute("wrongEmailOrPassword", true);
-                    request.getRequestDispatcher("/quiz/login.jsp").forward(request, response);
-                }
-            } else {
-                request.getRequestDispatcher("/quiz/login.jsp").forward(request, response);
+        String quizId = request.getParameter("id");
+        if (quizId != null) {
+            try {
+                List<ResultExtended> resultList = em.createNativeQuery("SELECT result.id, result.user_id, result.quiz_id, result.score, user.username FROM user JOIN result ON user.id=result.user_id WHERE result.quiz_id = " + quizId, ResultExtended.class).getResultList();
+                request.setAttribute("resultList", resultList);
+            } catch (NoResultException e) {
+
             }
         }
+
+        request.getRequestDispatcher("/quiz/results.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

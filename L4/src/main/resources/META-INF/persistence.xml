@@ -4,6 +4,9 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>quiz.entities.User</class>
     <class>quiz.entities.Quiz</class>
+    <class>quiz.entities.Question</class>
+    <class>quiz.entities.Result</class>
+    <class>quiz.entities.ResultExtended</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:5252/quiz_game"/>

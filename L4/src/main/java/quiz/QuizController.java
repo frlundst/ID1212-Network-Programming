@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import quiz.entities.Question;
 import quiz.entities.Quiz;
+import quiz.entities.Result;
 
 /**
  *
@@ -44,14 +46,45 @@ public class QuizController extends HttpServlet {
                 EntityManager em = emf.createEntityManager();
 
                 try {
-                    Quiz result = (Quiz) em.createNativeQuery("SELECT * FROM quiz WHERE id=" + id, Quiz.class).getSingleResult();
-                    request.setAttribute("subject", result.getSubject());
-                    
-                } catch (NoResultException e) {
-                    
-                }
+                    //Quiz quiz = new Quiz();
+                    //quiz.setId(Integer.parseInt(id));
+                    Quiz quiz = em.createNamedQuery("Quiz.findById", Quiz.class).setParameter("id", Integer.valueOf(id)).getSingleResult();
+                    request.setAttribute("quiz", quiz);
 
-                request.getRequestDispatcher("/quiz/quiz.jsp").forward(request, response);
+                    List<Question> questionList = em.createNamedQuery("Question.findByQuizId", Question.class).setParameter("quizId", quiz.getId()).getResultList();
+                    request.setAttribute("questionList", questionList);
+
+                    // If user posts answers
+                    // All quizes has atleast one question
+                    if (request.getParameter("0") != null) {
+                        int index = 0, score = 0;
+                        String answer;
+                        while ((answer = request.getParameter(Integer.toString(index))) != null) {
+                            Question question = questionList.get(index);
+                            answer = answer.replace("+", " ");
+                            System.out.println(answer + " : " + question.getAnswer());
+                            if (answer.equals(question.getAnswer())) {
+                                score++;
+                            }
+                            index++;
+                        }
+
+                        Result result = new Result();
+                        result.setQuizId(quiz.getId());
+                        result.setScore(score);
+                        result.setUserId(Integer.parseInt(session.getAttribute("user_id").toString()));
+                        
+                        em.getTransaction().begin(); 
+                        em.persist(result);
+                        em.getTransaction().commit();
+                        
+                        response.sendRedirect("results?id=" + quiz.getId());
+                    } else {
+                        request.getRequestDispatcher("/quiz/quiz.jsp").forward(request, response);
+                    }
+                } catch (NoResultException e) {
+                    request.getRequestDispatcher("/quiz/quiz.jsp").forward(request, response);
+                }
             }
         }
     }
