@@ -14,4 +14,5 @@ import com.backend.entity.Category;
 public interface CategoryRepository extends JpaRepository<Category, String> {
     List<Category> findAll();
     Optional<Category> findById(String id);
+    List<Category> findAllById(Iterable<String> ids);
 }

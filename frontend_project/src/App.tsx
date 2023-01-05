@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import React from 'react';
-import NavbarPresenter from './Presenter/NavbarPresenter';
+import HeaderPresenter from './Presenter/HeaderPresenter';
 import { createUseStyles } from 'react-jss';
 import HomePresenter from './Presenter/HomePresenter';
 import { Route, Routes } from 'react-router-dom';
 import CategoriesPresenter from './Presenter/CategoriesPresenter';
 import CategoryPresenter from './Presenter/CategoryPresenter';
 import ProductPresenter from './Presenter/ProductPresenter';
+import CartPresenter from './Presenter/CartPresenter';
+import { Offcanvas } from 'react-bootstrap';
 
 const useStyles = createUseStyles({
   wrapper: {
@@ -19,8 +21,24 @@ const useStyles = createUseStyles({
 function App() {
   const classes = useStyles();
 
+  const [cart, setCart] = React.useState<string[]>(JSON.parse(localStorage["cart"] ?? "[]"));
+
+  React.useEffect(() => {
+    localStorage["cart"] = JSON.stringify(cart);
+  }, [cart]);
+
+  const addToCart = (productId: string) => {
+    setCart([...cart, productId]);
+  }
+
+  const [showCart, setShowCart] = useState(false);
+
   return <div>
-    <NavbarPresenter />
+
+    <HeaderPresenter cartLength={cart.length} setShowCart={(show) => setShowCart(show)} />
+
+    <CartPresenter productIds={cart} showCart={showCart} setShowCart={() => setShowCart(false)} setProductIds={(productIds) => setCart(productIds)} />
+
     <div className={classes.wrapper}>
       <Routes>
 
@@ -44,11 +62,10 @@ function App() {
           element={<CategoryPresenter />}
         />
 
-        <Route 
+        <Route
           path="/product/:id"
-          element={<ProductPresenter />}
+          element={<ProductPresenter addToCart={addToCart} />}
         />
-
       </Routes>
     </div>
   </div>

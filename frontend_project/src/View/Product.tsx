@@ -28,6 +28,7 @@ const useStyles = createUseStyles({
 
 interface ProductProps {
     product: ProductType;
+    addToCart: (productId: string) => void;
 }
 
 function Product(props: ProductProps) {
@@ -58,6 +59,7 @@ function Product(props: ProductProps) {
                     disabled={addedToCart}
                     onClick={() => {
                         setAddedToCart(true);
+                        props.addToCart(props.product.id);
                         setTimeout(() => {
                             setAddedToCart(false);
                         }, 2000);

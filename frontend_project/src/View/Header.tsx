@@ -4,6 +4,7 @@ import { createUseStyles } from "react-jss";
 import { useNavigate } from "react-router-dom";
 import { CategoryType } from "../Types";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import { GoSearch } from "react-icons/go";
 
 const useStyles = createUseStyles({
   wrapper: {
@@ -16,11 +17,15 @@ const useStyles = createUseStyles({
   },
   cart: {
     fontSize: "20px"
+  },
+  loginRegister: {
+    marginLeft: "50px"
   }
 })
 
 interface HeaderProps {
-
+  cartLength: number;
+  setShowCart: (show: boolean) => void;
 }
 
 function Header(props: HeaderProps) {
@@ -28,6 +33,7 @@ function Header(props: HeaderProps) {
   const navigate = useNavigate();
 
   const [categories, setCategories] = React.useState<CategoryType[]>([]);
+
 
   React.useEffect(() => {
     const res = fetch('http://localhost:8080/categories');
@@ -58,12 +64,12 @@ function Header(props: HeaderProps) {
             })}
           </NavDropdown>
 
-          <Nav.Link>
+          <Nav.Link onClick={() => props.setShowCart(true)} >
             <MdOutlineShoppingCart className={classes.cart} />
-            0
+            {props.cartLength}
           </Nav.Link>
         </Nav>
-        
+
         <Form className="d-flex">
           <Form.Control
             type="search"
@@ -71,8 +77,14 @@ function Header(props: HeaderProps) {
             className="me-2"
             aria-label="Search"
           />
-          <Button variant="outline-success">Search</Button>
+          <Button variant="outline-success"><GoSearch /></Button>
         </Form>
+
+        <div className={classes.loginRegister}>
+          <Button className="me-2" variant="outline-dark">Login</Button>
+          or
+          <Button className="ms-2" variant="dark">Register</Button>
+        </div>
       </Navbar.Collapse>
     </Container>
   </Navbar>

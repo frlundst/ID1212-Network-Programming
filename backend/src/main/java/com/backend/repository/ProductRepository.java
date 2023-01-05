@@ -12,4 +12,5 @@ import com.backend.entity.Product;
 public interface ProductRepository extends JpaRepository<Product, String> {
     List<Product> findByCategoryId(String id);
     Optional<Product> findById(String id);
+    List<Product> findAllById(Iterable<String> ids);
 }

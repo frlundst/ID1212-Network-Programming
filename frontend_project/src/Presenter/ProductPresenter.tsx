@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { ProductType } from "../Types";
 
 interface ProductPresenterProps {
+    addToCart: (productId: string) => void;
 }
 
 function ProductPresenter(props: ProductPresenterProps) {
@@ -20,7 +21,7 @@ function ProductPresenter(props: ProductPresenterProps) {
         })
     }, [id]);
 
-    return <Product product={product} />
+    return <Product product={product} addToCart={props.addToCart} />
 }
 
 export default ProductPresenter;
