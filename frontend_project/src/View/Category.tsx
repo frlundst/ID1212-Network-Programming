@@ -34,10 +34,14 @@ function Category(props: CategoryProps) {
     const navigate = useNavigate();
 
     return <Wrapper>
-        <h3>Category "{props.category.name}"</h3>
-        <p>{props.category.description}</p>
+        <h3>Category "{props.category?.name}"</h3>
+        <p>{props.category?.description}</p>
         <br/>
-        <h4 style={{textAlign: "center"}}>Subcategories</h4>
+        {props.category?.children?.length !== 0 ? 
+            <h4 style={{textAlign: "center"}}>Subcategories</h4>
+            :
+            <h4 style={{textAlign: "center"}}>Products</h4>
+        }
         <br/>
         <Row className="justify-content-center" style={{ columnGap: "10px" }}>
             {props.category?.children?.map(child => {

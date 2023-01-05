@@ -18,7 +18,7 @@ function ProductPresenter(props: ProductPresenterProps) {
                 setProduct(data);
             })
         })
-    })
+    }, [id]);
 
     return <Product product={product} />
 }

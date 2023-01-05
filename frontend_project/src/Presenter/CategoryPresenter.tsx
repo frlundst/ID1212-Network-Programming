@@ -29,6 +29,8 @@ function CategoryPresenter(props: CategoryPresenterProps) {
                             setProducts(products);
                         });
                     });
+                }else{
+                    setProducts([]);
                 }
             });
         });
