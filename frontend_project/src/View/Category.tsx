@@ -27,6 +27,7 @@ const useStyles = createUseStyles({
 interface CategoryProps {
     category: CategoryType;
     products: ProductType[];
+    addToCart: (productId: string) => void;
 }
 
 function Category(props: CategoryProps) {
@@ -79,7 +80,11 @@ function Category(props: CategoryProps) {
                             <div style={{ width: "50%" }}>
                                 <div>{product.price} kr</div>
                             </div>
-                            <Button style={{ width: "50%" }} variant="primary">Add to cart</Button>
+                            <Button 
+                                style={{ width: "50%" }} 
+                                variant="primary"
+                                onClick={() => props.addToCart(product.id)}
+                            >Add to cart</Button>
                         </Row>
                     </Card.Body>
                 </Card>

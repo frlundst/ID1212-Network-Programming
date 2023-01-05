@@ -59,7 +59,7 @@ function App() {
 
         <Route
           path="/category/:id"
-          element={<CategoryPresenter />}
+          element={<CategoryPresenter addToCart={addToCart} />}
         />
 
         <Route

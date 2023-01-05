@@ -4,7 +4,7 @@ import { CategoryType, ProductType } from "../Types";
 import React from "react";
 
 interface CategoryPresenterProps {
-
+    addToCart: (productId: string) => void;
 }
 
 function CategoryPresenter(props: CategoryPresenterProps) {
@@ -36,7 +36,7 @@ function CategoryPresenter(props: CategoryPresenterProps) {
         });
     }, [id]);
 
-    return <Category category={category} products={products} />
+    return <Category category={category} products={products} addToCart={props.addToCart} />
 }
 
 export default CategoryPresenter;

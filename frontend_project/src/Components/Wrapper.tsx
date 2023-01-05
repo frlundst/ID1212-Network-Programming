@@ -5,6 +5,7 @@ const useStyles = createUseStyles({
         padding: "20px",
         backgroundColor: "white",
         minHeight: "80vh",
+        borderRadius: "10px",
     }
 })
 
