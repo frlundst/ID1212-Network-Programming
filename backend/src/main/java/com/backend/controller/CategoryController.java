@@ -1,11 +1,13 @@
 package com.backend.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.entity.Category;
@@ -21,13 +23,15 @@ public class CategoryController {
     public CategoryController() {
     }
 
-    @GetMapping("/category")
-    public Category getCategory() {
-        return new Category("1", "test");
+    @GetMapping("/category/{id}")
+    public Optional<Category> getCategory(@PathVariable String id) {
+        return categoryRepository.findById(id);
     }
 
     @GetMapping("/categories")
     public List<Category> getCategories(Model model) {
         return categoryRepository.findAll();
     }
+
+
 }

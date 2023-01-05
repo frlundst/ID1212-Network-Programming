@@ -1,7 +1,9 @@
 package com.backend.entity;
 
-import java.util.Objects;
-import java.util.UUID;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 
@@ -16,13 +18,40 @@ public class Category {
     @Column(name = "name")
     private String name;
 
-    protected Category() {}
+    @Column(name = "description")
+    private String description;
 
-    public Category(String id, String name) {
-        this.id = id;
+    @OneToOne
+    @JoinColumn(name = "parent_id")
+    @JsonBackReference
+    private Category parent;
+     
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Category> children;
+
+    @Column(name = "parent_id", insertable = false, updatable = false)
+    private String parent_id;
+
+    //@OneToMany(mappedBy = "category")
+    //private List<SubCategory> subCategories;
+
+    //@OneToMany
+    //@JoinColumn(name = "category_id")
+    //private List<SubCategory> subCategories;
+
+    public Category(String name, Category parent) {
         this.name = name;
+        this.parent = parent;
     }
-    
+     
+    public Category(String name) {
+        this.name = name;
+    }  
+ 
+    public Category() {
+    }
+
     public String getId() {
         return id;
     }
@@ -39,36 +68,39 @@ public class Category {
         this.name = name;
     }
 
-    @Override
-    public int hashCode() {
-        UUID uuid = UUID.randomUUID();
-        return uuid.toString().hashCode();
+    public String getDescription() {
+        return description;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Category other = (Category) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        return Objects.equals(this.id, other.id);
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("City{");
-        sb.append("id=").append(id);
-        sb.append(", name='").append(name).append('\'');
-        sb.append('}');
-        return sb.toString();
+    public String getParent_id() {
+        return parent_id;
+    }
+
+    public void setParent_id(String parentId) {
+        this.parent_id = parentId;
+    }
+
+    public Category getParent() {
+        return parent;
+    }
+
+    public void setParent(Category parent) {
+        this.parent = parent;
+    }
+
+    public List<Category> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Category> children) {
+        this.children = children;
+    }
+
+    public void addChild(Category children) {
+        this.children.add(children);
     }
 }

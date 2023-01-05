@@ -4,10 +4,12 @@ import NavbarPresenter from './Presenter/NavbarPresenter';
 import { createUseStyles } from 'react-jss';
 import HomePresenter from './Presenter/HomePresenter';
 import { Route, Routes } from 'react-router-dom';
+import CategoriesPresenter from './Presenter/CategoriesPresenter';
+import CategoryPresenter from './Presenter/CategoryPresenter';
 
 const useStyles = createUseStyles({
   wrapper: {
-    padding: "20px 25%",
+    padding: "20px 10.5%",
     background: "lightgray",
     minHeight: "100vh",
   }
@@ -15,15 +17,6 @@ const useStyles = createUseStyles({
 
 function App() {
   const classes = useStyles();
-
-  /*React.useEffect(() => {
-    const res = fetch('http://localhost:8080/categories');
-    res.then((res) => {
-      res.json().then((data) => {
-        console.log(data);
-      });
-    });
-  }, []);*/
 
   return <div>
     <NavbarPresenter />
@@ -42,12 +35,16 @@ function App() {
 
         <Route
           path="/categories"
-          element={<HomePresenter />}
+          element={<CategoriesPresenter />}
+        />
+
+        <Route
+          path="/category/:id"
+          element={<CategoryPresenter />}
         />
 
       </Routes>
     </div>
-
   </div>
 }
 
