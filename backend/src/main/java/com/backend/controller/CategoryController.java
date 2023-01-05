@@ -24,7 +24,7 @@ public class CategoryController {
     }
 
     @GetMapping("/category/{id}")
-    public Optional<Category> getCategory(@PathVariable String id) {
+    public Optional<Category> getCategory(@PathVariable String id, Model model) {
         return categoryRepository.findById(id);
     }
 
@@ -32,6 +32,4 @@ public class CategoryController {
     public List<Category> getCategories(Model model) {
         return categoryRepository.findAll();
     }
-
-
 }
