@@ -38,7 +38,7 @@ function Header(props: HeaderProps) {
     });
   }, []);
 
-  return <Navbar className={classes.wrapper} bg="light" expand="lg">
+  return <Navbar className={classes.wrapper} bg="white" expand="lg">
     <Container fluid>
       <Navbar.Brand className={classes.logo} onClick={() => navigate("/")} >Komplett</Navbar.Brand>
 
@@ -47,8 +47,6 @@ function Header(props: HeaderProps) {
       <Navbar.Collapse id="navbarScroll">
         <Nav
           className="me-auto my-2 my-lg-0"
-          style={{ maxHeight: '100px' }}
-          navbarScroll
         >
           <Nav.Link onClick={() => navigate("/")}>Home</Nav.Link>
 
@@ -62,6 +60,7 @@ function Header(props: HeaderProps) {
 
           <Nav.Link>
             <MdOutlineShoppingCart className={classes.cart} />
+            0
           </Nav.Link>
         </Nav>
         

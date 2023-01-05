@@ -26,5 +26,10 @@ public class ProductController {
     public List<Product> getCategory(@PathVariable String id, Model model) {
         return productRepository.findByCategoryId(id);
     }
+
+    @GetMapping("/product/{id}")
+    public Product getProduct(@PathVariable String id, Model model) {
+        return productRepository.findById(id).get();
+    }
 }
 

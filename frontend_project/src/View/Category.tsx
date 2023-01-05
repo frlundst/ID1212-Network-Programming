@@ -36,7 +36,10 @@ function Category(props: CategoryProps) {
     return <Wrapper>
         <h3>Category "{props.category.name}"</h3>
         <p>{props.category.description}</p>
-        <Row style={{ columnGap: "10px" }}>
+        <br/>
+        <h4 style={{textAlign: "center"}}>Subcategories</h4>
+        <br/>
+        <Row className="justify-content-center" style={{ columnGap: "10px" }}>
             {props.category?.children?.map(child => {
                 return <Col
                     xs={3}

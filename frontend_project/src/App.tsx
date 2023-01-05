@@ -6,11 +6,12 @@ import HomePresenter from './Presenter/HomePresenter';
 import { Route, Routes } from 'react-router-dom';
 import CategoriesPresenter from './Presenter/CategoriesPresenter';
 import CategoryPresenter from './Presenter/CategoryPresenter';
+import ProductPresenter from './Presenter/ProductPresenter';
 
 const useStyles = createUseStyles({
   wrapper: {
     padding: "20px 10.5%",
-    background: "lightgray",
+    background: "#F6F6F6",
     minHeight: "100vh",
   }
 })
@@ -41,6 +42,11 @@ function App() {
         <Route
           path="/category/:id"
           element={<CategoryPresenter />}
+        />
+
+        <Route 
+          path="/product/:id"
+          element={<ProductPresenter />}
         />
 
       </Routes>
