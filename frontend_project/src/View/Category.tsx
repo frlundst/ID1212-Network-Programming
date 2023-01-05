@@ -18,7 +18,8 @@ const useStyles = createUseStyles({
     },
     productTitle: {
         '&:hover': {
-
+            cursor: "pointer",
+            textDecoration: "underline",
         }
     }
 })
