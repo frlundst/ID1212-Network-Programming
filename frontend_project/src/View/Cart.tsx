@@ -22,6 +22,16 @@ const useStyles = createUseStyles({
         display: "flex",
         alignItems: "center",
         columnGap: "10px"
+    },
+    total: {
+        fontWeight: "500",
+        margin: "0",
+        width: "100%"
+    },
+    priceInt: {
+        textAlign: "end",
+        position: "absolute",
+        right: "8px"
     }
 })
 
@@ -59,16 +69,20 @@ function Cart(props: CartProps) {
                             <Button 
                                 className={classes.button} 
                                 onClick={() => product.count < product.numberAvailable ? props.onAdd(product.id) : null}
+                                disabled={product.count === product.numberAvailable}
                             >+</Button>
                         </Row>
                     </Col>
                     <Col>
                         <Image className={classes.image} src="/images/default.png" />
                     </Col>
-                    <hr/>
+                    <Row className={classes.total}>
+                        Price: <div className={classes.priceInt}>{product.price} kr</div>
+                    </Row>
+                    <hr style={{marginTop: "10px"}}/>
                 </Row>
             })}
-            <div>Total: {total}</div>
+            <Row className={classes.total}>Total: <div className={classes.priceInt}>{total} kr</div></Row>
         </Offcanvas.Body>
     </Offcanvas>
 }

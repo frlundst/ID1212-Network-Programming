@@ -1,10 +1,11 @@
+import Wrapper from "../Components/Wrapper";
 
 interface HomeProps { }
 
 function Home(props: HomeProps) {
-    return <div style={{backgroundColor: "white"}}>
+    return <Wrapper>
         <h1>Home</h1>
-    </div>
+    </Wrapper>
 }
 
 export default Home;

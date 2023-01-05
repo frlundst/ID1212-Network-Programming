@@ -36,7 +36,7 @@ function CartPresenter(props: CartPresenterProps) {
         }else{
             setProducts([]);
         }
-    }, [total, props.productIds]);
+    }, [props.productIds]);
 
     const addNumber = (id: string) => {
         props.setProductIds([...props.productIds, id]);
@@ -45,7 +45,7 @@ function CartPresenter(props: CartPresenterProps) {
     const removeNumber = (id: string) => {
         var array = props.productIds;
         array.splice(props.productIds.indexOf(id), 1);
-        props.setProductIds(array);
+        props.setProductIds([...array]);
     }
 
     return <Cart products={products} showCart={props.showCart} setShowCart={props.setShowCart} onAdd={addNumber} onRemove={removeNumber} />
