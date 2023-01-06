@@ -1,5 +1,4 @@
-:root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+#root {
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
@@ -9,7 +8,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-  background-color: rgb(255, 255, 255, 0.5) !important;
+  background-image: linear-gradient(to right top, #051937, #121930, #181a29, #1b1b22, #1c1c1c);
 }
 
 

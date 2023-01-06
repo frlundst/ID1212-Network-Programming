@@ -36,3 +36,13 @@ CREATE TABLE product (
     PRIMARY KEY (id),
     FOREIGN KEY (category_id) REFERENCES category(id)
 );
+
+CREATE TABLE user (
+    id VARCHAR NOT NULL default uuid_generate_v1(),
+    email VARCHAR NOT NULL,
+    password VARCHAR NOT NULL,
+    name VARCHAR NOT NULL,
+    address VARCHAR NOT NULL,
+    phone VARCHAR NOT NULL,
+    PRIMARY KEY (id)
+);

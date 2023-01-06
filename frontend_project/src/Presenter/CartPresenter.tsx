@@ -17,6 +17,7 @@ function CartPresenter(props: CartPresenterProps) {
 
     const [products, setProducts] = React.useState<ProductTypeWithCount[]>([]);
     const [total, setTotal] = React.useState(0);
+    const [isValid, setIsValid] = React.useState<boolean>(true);
 
     React.useEffect(() => {
         if (props.productIds.length > 0) {
@@ -25,9 +26,14 @@ function CartPresenter(props: CartPresenterProps) {
                 data.json().then((data: ProductType[]) => {
                     const productsWithCount = data.map((product) => {
                         setTotal(total + product.price);
+                        setIsValid(true);
+                        const count = props.productIds.filter((id) => id === product.id).length;
+                        if (count > product.numberAvailable) {
+                            setIsValid(false);
+                        }
                         return {
                             ...product,
-                            count: props.productIds.filter((id) => id === product.id).length
+                            count: count
                         }
                     })
                     setProducts(productsWithCount);
@@ -48,7 +54,7 @@ function CartPresenter(props: CartPresenterProps) {
         props.setProductIds([...array]);
     }
 
-    return <Cart products={products} showCart={props.showCart} setShowCart={props.setShowCart} onAdd={addNumber} onRemove={removeNumber} />
+    return <Cart products={products} showCart={props.showCart} setShowCart={props.setShowCart} onAdd={addNumber} onRemove={removeNumber} isValid={isValid} />
 }
 
 export default CartPresenter;

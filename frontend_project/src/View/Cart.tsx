@@ -4,14 +4,15 @@ import { createUseStyles } from "react-jss";
 import Dot from "../Components/Dot";
 import { MdProductionQuantityLimits } from "react-icons/md";
 import { GoTrashcan } from "react-icons/go";
+import React from "react";
 
 const useStyles = createUseStyles({
     button: {
-        width: "50px",
+        width: "40px",
         borderRadius: "0px",
     },
     control: {
-        width: "50px",
+        width: "75px",
         borderRadius: "0px",
     },
     image: {
@@ -41,6 +42,7 @@ interface CartProps {
     setShowCart: () => void;
     onAdd: (id: string) => void;
     onRemove: (id: string) => void;
+    isValid: boolean;
 }
 
 function Cart(props: CartProps) {
@@ -65,11 +67,16 @@ function Cart(props: CartProps) {
                                 className={classes.button} 
                                 onClick={() => props.onRemove(product.id)}
                             >{product.count === 1 ? <GoTrashcan /> : "-"}</Button>
-                            <Form.Control value={product.count} disabled={true} className={classes.control} />
+                            <Form.Control 
+                                value={product.count} 
+                                disabled={true} 
+                                className={classes.control} 
+                                isInvalid={product.count > product.numberAvailable}
+                            />
                             <Button 
                                 className={classes.button} 
                                 onClick={() => product.count < product.numberAvailable ? props.onAdd(product.id) : null}
-                                disabled={product.count === product.numberAvailable}
+                                disabled={product.count >= product.numberAvailable}
                             >+</Button>
                         </Row>
                     </Col>
@@ -82,7 +89,12 @@ function Cart(props: CartProps) {
                     <hr style={{marginTop: "10px"}}/>
                 </Row>
             })}
-            <Row className={classes.total}>Total: <div className={classes.priceInt}>{total} kr</div></Row>
+            <Row className={classes.total}>
+                Total: <div className={classes.priceInt}>{total} kr</div>
+            </Row>
+            <Row style={{margin: "0", width: "365px", position: "fixed", bottom: "10px"}}>
+                <Button variant="primary" style={{ width: "100%" }} disabled={props.products.length === 0 || !props.isValid}>Checkout →</Button>
+            </Row>
         </Offcanvas.Body>
     </Offcanvas>
 }

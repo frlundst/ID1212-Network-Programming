@@ -9,6 +9,12 @@ import { GoSearch } from "react-icons/go";
 const useStyles = createUseStyles({
   wrapper: {
     padding: "20px 10%",
+    background: "rgba(255, 255, 255, 0.2)",
+    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+    backdropFilter: "blur(5px)",
+    WebkitDackdropFilter: "blur(5px)",
+    borderBottom: "1px solid rgba(255, 255, 255, 0.3)",
+    zIndex: "5"
   },
   logo: {
     '&:hover': {
@@ -44,9 +50,9 @@ function Header(props: HeaderProps) {
     });
   }, []);
 
-  return <Navbar className={classes.wrapper} bg="white" expand="lg">
+  return <Navbar className={classes.wrapper} variant="dark" expand="lg">
     <Container fluid>
-      <Navbar.Brand className={classes.logo} onClick={() => navigate("/")} >Komplett</Navbar.Brand>
+      <Navbar.Brand className={classes.logo} onClick={() => navigate("/")} >E-Space</Navbar.Brand>
 
       <Navbar.Toggle aria-controls="navbarScroll" />
 
@@ -77,13 +83,17 @@ function Header(props: HeaderProps) {
             className="me-2"
             aria-label="Search"
           />
-          <Button variant="outline-success"><GoSearch /></Button>
+          <Button variant="primary"><GoSearch /></Button>
         </Form>
 
         <div className={classes.loginRegister}>
-          <Button className="me-2" variant="outline-dark">Login</Button>
-          or
-          <Button className="ms-2" variant="dark">Register</Button>
+          <Button className="me-2" variant="outline-primary">
+            Login
+          </Button>
+          <span style={{color: "white"}}>or</span>
+          <Button className="ms-2" variant="primary" onClick={() => navigate("/register")}>
+            Register
+          </Button>
         </div>
       </Navbar.Collapse>
     </Container>

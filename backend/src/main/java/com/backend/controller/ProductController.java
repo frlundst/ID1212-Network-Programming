@@ -1,6 +1,5 @@
 package com.backend.controller;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,8 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.backend.entity.Product;
 import com.backend.repository.ProductRepository;
 
-//@CrossOrigin(origins = {"http://127.0.0.1:5173", "http://localhost:5173"})
-@CrossOrigin
+@CrossOrigin(origins = {"http://127.0.0.1:5173", "http://localhost:5173"})
 @RestController
 public class ProductController {
 

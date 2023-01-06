@@ -8,12 +8,13 @@ import CategoriesPresenter from './Presenter/CategoriesPresenter';
 import CategoryPresenter from './Presenter/CategoryPresenter';
 import ProductPresenter from './Presenter/ProductPresenter';
 import CartPresenter from './Presenter/CartPresenter';
-import { Offcanvas } from 'react-bootstrap';
+import RegisterPresenter from './Presenter/RegisterPresenter';
 
 const useStyles = createUseStyles({
   wrapper: {
     padding: "20px 10.5%",
-    background: "#F6F6F6",
+    //backgroundImage:" linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12)",
+    background: "transparent",
     minHeight: "100vh",
   }
 })
@@ -29,6 +30,8 @@ function App() {
 
   const addToCart = (productId: string) => {
     setCart([...cart, productId]);
+    setShowCart(true);
+    setTimeout(() => setShowCart(false), 750);
   }
 
   const [showCart, setShowCart] = useState(false);
@@ -50,6 +53,11 @@ function App() {
         <Route
           path="/"
           element={<HomePresenter />}
+        />
+
+        <Route 
+          path="/register"
+          element={<RegisterPresenter />}
         />
 
         <Route
