@@ -5,6 +5,7 @@ import Dot from "../Components/Dot";
 import { MdProductionQuantityLimits } from "react-icons/md";
 import { GoTrashcan } from "react-icons/go";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = createUseStyles({
     button: {
@@ -33,6 +34,13 @@ const useStyles = createUseStyles({
         textAlign: "end",
         position: "absolute",
         right: "8px"
+    },
+    name: {
+        fontWeight: "500",
+        '&:hover': {
+            cursor: "pointer",
+            textDecoration: "underline"
+        }
     }
 })
 
@@ -47,10 +55,10 @@ interface CartProps {
 
 function Cart(props: CartProps) {
     const classes = useStyles();
-
+    const navigate = useNavigate();
     const total = props.products.reduce((acc, product) => acc + product.price * product.count, 0);
 
-    return <Offcanvas show={props.showCart} onHide={props.setShowCart}>
+    return <Offcanvas placement="end" show={props.showCart} onHide={props.setShowCart}>
         <Offcanvas.Header closeButton>
             <Offcanvas.Title>Cart</Offcanvas.Title>
         </Offcanvas.Header>
@@ -59,7 +67,7 @@ function Cart(props: CartProps) {
             {props.products.map((product) => {
                 return <Row key={product.id}>
                     <Col>
-                        <div>{product.name}</div>
+                        <div className={classes.name} onClick={() => navigate(`product/${product.id}`)}>{product.name}</div>
                         <div className={classes.inStore}><Dot size="20px" numberAvailable={product.numberAvailable} /> {product.numberAvailable} in store</div>
                         <Row style={{ margin: "5px 0px 10px 0px" }}>
                             <Button 

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { CategoryType } from "../Types";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { GoSearch } from "react-icons/go";
+import { RxAvatar } from "react-icons/rx";
 
 const useStyles = createUseStyles({
   wrapper: {
@@ -22,10 +23,10 @@ const useStyles = createUseStyles({
     }
   },
   cart: {
-    fontSize: "20px"
+    fontSize: "20px",
   },
   loginRegister: {
-    marginLeft: "50px"
+    marginRight: "50px"
   }
 })
 
@@ -69,14 +70,9 @@ function Header(props: HeaderProps) {
               </NavDropdown.Item> : null
             })}
           </NavDropdown>
-
-          <Nav.Link onClick={() => props.setShowCart(true)} >
-            <MdOutlineShoppingCart className={classes.cart} />
-            {props.cartLength}
-          </Nav.Link>
         </Nav>
 
-        <Form className="d-flex">
+        <Form className="d-flex me-3">
           <Form.Control
             type="search"
             placeholder="Search"
@@ -86,15 +82,21 @@ function Header(props: HeaderProps) {
           <Button variant="primary"><GoSearch /></Button>
         </Form>
 
-        <div className={classes.loginRegister}>
-          <Button className="me-2" variant="outline-primary">
-            Login
-          </Button>
-          <span style={{color: "white"}}>or</span>
-          <Button className="ms-2" variant="primary" onClick={() => navigate("/register")}>
-            Register
-          </Button>
-        </div>
+        <Nav>
+          <NavDropdown title={<RxAvatar className={classes.cart} />}>
+              <NavDropdown.Item>
+                Login
+              </NavDropdown.Item>
+              <NavDropdown.Item onClick={() => navigate("/register")}>
+                Register
+              </NavDropdown.Item>
+          </NavDropdown>
+
+          <Nav.Link onClick={() => props.setShowCart(true)} >
+            <MdOutlineShoppingCart className={classes.cart} />
+            {props.cartLength}
+          </Nav.Link>
+        </Nav>
       </Navbar.Collapse>
     </Container>
   </Navbar>

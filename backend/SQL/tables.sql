@@ -22,7 +22,6 @@ CREATE TABLE category (
     description VARCHAR,
     parent_id VARCHAR DEFAULT NULL,
     PRIMARY KEY (id),
-    KEY `parent_id_key` (parent_id),
     CONSTRAINT fk_parent_id FOREIGN KEY (parent_id) REFERENCES category(id)
 );
 
