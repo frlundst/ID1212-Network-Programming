@@ -33,6 +33,7 @@ const useStyles = createUseStyles({
 interface HeaderProps {
   cartLength: number;
   setShowCart: (show: boolean) => void;
+  setShowRegister: (show: boolean) => void;
 }
 
 function Header(props: HeaderProps) {
@@ -87,7 +88,7 @@ function Header(props: HeaderProps) {
               <NavDropdown.Item>
                 Login
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => navigate("/register")}>
+              <NavDropdown.Item onClick={() => props.setShowRegister(true)}>
                 Register
               </NavDropdown.Item>
           </NavDropdown>

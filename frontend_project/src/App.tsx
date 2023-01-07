@@ -35,12 +35,15 @@ function App() {
   }
 
   const [showCart, setShowCart] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
 
   return <div>
 
-    <HeaderPresenter cartLength={cart.length} setShowCart={(show) => setShowCart(show)} />
+    <HeaderPresenter cartLength={cart.length} setShowCart={(show) => setShowCart(show)} setShowRegister={(show) => setShowRegister(show)} />
 
     <CartPresenter productIds={cart} showCart={showCart} setShowCart={() => setShowCart(false)} setProductIds={(productIds) => setCart(productIds)} />
+
+    <RegisterPresenter setShowRegister={() => setShowRegister(false)} showRegister={showRegister} />
 
     <div className={classes.wrapper}>
       <Routes>
@@ -53,11 +56,6 @@ function App() {
         <Route
           path="/"
           element={<HomePresenter />}
-        />
-
-        <Route 
-          path="/register"
-          element={<RegisterPresenter />}
         />
 
         <Route
