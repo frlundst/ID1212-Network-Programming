@@ -3,12 +3,15 @@ import React from 'react';
 import HeaderPresenter from './Presenter/HeaderPresenter';
 import { createUseStyles } from 'react-jss';
 import HomePresenter from './Presenter/HomePresenter';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import CategoriesPresenter from './Presenter/CategoriesPresenter';
 import CategoryPresenter from './Presenter/CategoryPresenter';
 import ProductPresenter from './Presenter/ProductPresenter';
 import CartPresenter from './Presenter/CartPresenter';
 import RegisterPresenter from './Presenter/RegisterPresenter';
+import LoginPresenter from './Presenter/LoginPresenter';
+import CheckoutPresenter from './Presenter/CheckoutPresenter';
+import { ProfileType } from './Types';
 
 const useStyles = createUseStyles({
   wrapper: {
@@ -23,6 +26,33 @@ function App() {
   const classes = useStyles();
 
   const [cart, setCart] = React.useState<string[]>(JSON.parse(localStorage["cart"] ?? "[]"));
+  const [profile, setprofile] = React.useState<ProfileType | null>(null);
+  const [token, setToken] = React.useState<string | null>(localStorage.getItem("token") ?? null);
+
+  React.useEffect(() => {
+    setToken(localStorage.getItem("token") ?? null);
+  })
+
+  React.useEffect(() => {
+    const key = `Bearer ${localStorage.getItem("token")}`;
+
+    fetch('http://localhost:8080/customer/getProfile', {
+      headers: {
+        'Authorization': key
+      }
+    }).then((res) => {
+      if (res.status === 200) {
+        res.json().then((res) => {
+          console.log(res);
+          setprofile(res);
+        });
+      } else {
+        setprofile(null);
+      }
+    }).catch(() => {
+      setprofile(null);
+    });
+  }, [token]);
 
   React.useEffect(() => {
     localStorage["cart"] = JSON.stringify(cart);
@@ -36,14 +66,28 @@ function App() {
 
   const [showCart, setShowCart] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+
+  const { search } = useLocation();
+  let paramId = new URLSearchParams(search).get("promptLogin") as string;
+
+  React.useEffect(() => {
+    if (paramId === "true" && profile === null) {
+      setShowLogin(true);
+    }else{
+      setShowLogin(false);
+    }
+  }, [paramId, profile]);
 
   return <div>
 
-    <HeaderPresenter cartLength={cart.length} setShowCart={(show) => setShowCart(show)} setShowRegister={(show) => setShowRegister(show)} />
+    <HeaderPresenter profile={profile} cartLength={cart.length} setShowCart={(show) => setShowCart(show)} setShowRegister={(show) => setShowRegister(show)} setShowLogin={(show) => setShowLogin(show)} />
 
     <CartPresenter productIds={cart} showCart={showCart} setShowCart={() => setShowCart(false)} setProductIds={(productIds) => setCart(productIds)} />
 
     <RegisterPresenter setShowRegister={() => setShowRegister(false)} showRegister={showRegister} />
+
+    <LoginPresenter setShowLogin={() => setShowLogin(false)} showLogin={showLogin} />
 
     <div className={classes.wrapper}>
       <Routes>
@@ -72,6 +116,12 @@ function App() {
           path="/product/:id"
           element={<ProductPresenter addToCart={addToCart} />}
         />
+
+        <Route
+          path="/checkout"
+          element={<CheckoutPresenter productIds={cart} profile={profile} setShowRegister={(show) => setShowRegister(show)} setShowLogin={(show) => setShowLogin(show)} />}
+        />
+
       </Routes>
     </div>
   </div>

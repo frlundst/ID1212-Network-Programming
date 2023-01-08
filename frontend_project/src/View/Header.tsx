@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Container, Form, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import { createUseStyles } from "react-jss";
 import { useNavigate } from "react-router-dom";
-import { CategoryType } from "../Types";
+import { CategoryType, ProfileType } from "../Types";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { GoSearch } from "react-icons/go";
 import { RxAvatar } from "react-icons/rx";
@@ -34,6 +34,8 @@ interface HeaderProps {
   cartLength: number;
   setShowCart: (show: boolean) => void;
   setShowRegister: (show: boolean) => void;
+  setShowLogin: (show: boolean) => void;
+  profile: ProfileType | null;
 }
 
 function Header(props: HeaderProps) {
@@ -41,7 +43,6 @@ function Header(props: HeaderProps) {
   const navigate = useNavigate();
 
   const [categories, setCategories] = React.useState<CategoryType[]>([]);
-
 
   React.useEffect(() => {
     const res = fetch('http://localhost:8080/categories');
@@ -106,9 +107,9 @@ function Header(props: HeaderProps) {
 >>>>>>> Stashed changes
                 Login
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => props.setShowRegister(true)}>
-                Register
-              </NavDropdown.Item>
+                <NavDropdown.Item onClick={() => props.setShowRegister(true)}>
+                  Register
+                </NavDropdown.Item></>}
           </NavDropdown>
 
           <Nav.Link onClick={() => props.setShowCart(true)} >
