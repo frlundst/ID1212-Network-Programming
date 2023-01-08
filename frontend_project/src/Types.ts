@@ -14,3 +14,11 @@ export interface ProductType {
   category: CategoryType;
   numberAvailable: number;
 }
+
+export interface ProfileType {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+}
