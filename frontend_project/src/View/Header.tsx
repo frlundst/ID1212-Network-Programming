@@ -85,7 +85,25 @@ function Header(props: HeaderProps) {
 
         <Nav>
           <NavDropdown title={<RxAvatar className={classes.cart} />}>
+<<<<<<< Updated upstream
               <NavDropdown.Item>
+=======
+            {props.profile ?
+              <>
+                <NavDropdown.Item onClick={() => props.setShowLogin(true)}>
+                  Profile
+                </NavDropdown.Item>
+                <NavDropdown.Item onClick={() => props.setShowLogin(true)}>
+                  Orders
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={() => localStorage.clear()}>
+                  Logout
+                </NavDropdown.Item>
+              </>
+              :
+              <><NavDropdown.Item onClick={() => props.setShowLogin(true)}>
+>>>>>>> Stashed changes
                 Login
               </NavDropdown.Item>
               <NavDropdown.Item onClick={() => props.setShowRegister(true)}>
