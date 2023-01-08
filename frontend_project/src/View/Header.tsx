@@ -86,9 +86,6 @@ function Header(props: HeaderProps) {
 
         <Nav>
           <NavDropdown title={<RxAvatar className={classes.cart} />}>
-<<<<<<< Updated upstream
-              <NavDropdown.Item>
-=======
             {props.profile ?
               <>
                 <NavDropdown.Item onClick={() => props.setShowLogin(true)}>
@@ -104,7 +101,6 @@ function Header(props: HeaderProps) {
               </>
               :
               <><NavDropdown.Item onClick={() => props.setShowLogin(true)}>
->>>>>>> Stashed changes
                 Login
               </NavDropdown.Item>
                 <NavDropdown.Item onClick={() => props.setShowRegister(true)}>
