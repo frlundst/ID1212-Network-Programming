@@ -57,6 +57,7 @@ CREATE TABLE order (
     email VARCHAR NOT NULL,
     phone VARCHAR NOT NULL,
     payment_method VARCHAR NOT NULL,
+    payed BOOLEAN NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES user(id)
 );

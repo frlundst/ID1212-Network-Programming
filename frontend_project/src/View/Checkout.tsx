@@ -16,11 +16,13 @@ interface CheckoutProps {
     setShowRegister: (show: boolean) => void;
     setShowLogin: (show: boolean) => void;
     products: ProductTypeWithCount[];
-    total: number;
+    //total: number;
+    setShowCart: (show: boolean) => void;
 }
 
 function Checkout(props: CheckoutProps) {
     const classes = useStyles();
+    let total = 0;
 
     return <Wrapper>
         <h1>Checkout</h1>
@@ -37,12 +39,13 @@ function Checkout(props: CheckoutProps) {
                 <hr />
                 {props.products.length > 0 ?
                     props.products.map((product) => {
+                        total += product.price * product.count;
                         return <Row key={product.id} className={classes.wrapper}>
                             <Col>
                                 <p>{product.name}</p>
                                 <p>Price: {product.price} kr</p>
                                 <p>Nr. of item: {product.count}</p>
-                                <Button>Change</Button>
+                                <Button onClick={() => props.setShowCart(true)}>Change</Button>
                             </Col>
                             <Col>
                                 <img src={"/images/default.png"} alt={product.name} />
@@ -53,7 +56,7 @@ function Checkout(props: CheckoutProps) {
                     :
                     <p>There are no products in your cart</p>}
                 <hr />
-                <p>Total: {props.total} kr</p>
+                <p>Total: {total} kr</p>
                 <hr />
 
                 <Form className={classes.wrapper}>

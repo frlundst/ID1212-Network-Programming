@@ -12,7 +12,7 @@ const useStyles = createUseStyles({
         width: "100%",
     },
     category: {
-        color: "blue",
+        color: "lightblue",
         '&:hover': {
             cursor: "pointer",
             textDecoration: "underline",

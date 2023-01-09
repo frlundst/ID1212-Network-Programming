@@ -36,6 +36,7 @@ interface HeaderProps {
   setShowRegister: (show: boolean) => void;
   setShowLogin: (show: boolean) => void;
   profile: ProfileType | null;
+  logoutFun: () => void;
 }
 
 function Header(props: HeaderProps) {
@@ -88,14 +89,14 @@ function Header(props: HeaderProps) {
           <NavDropdown title={<RxAvatar className={classes.cart} />}>
             {props.profile ?
               <>
-                <NavDropdown.Item onClick={() => props.setShowLogin(true)}>
+                <NavDropdown.Item onClick={() => navigate("/profile")}>
                   Profile
                 </NavDropdown.Item>
-                <NavDropdown.Item onClick={() => props.setShowLogin(true)}>
+                <NavDropdown.Item onClick={() => navigate("/orders")}>
                   Orders
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item onClick={() => localStorage.clear()}>
+                <NavDropdown.Item onClick={() => props.logoutFun()}>
                   Logout
                 </NavDropdown.Item>
               </>
