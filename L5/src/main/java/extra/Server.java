@@ -36,10 +36,9 @@ public class Server implements Interface {
     public static void main(String args[]) throws UnknownHostException, RemoteException, AlreadyBoundException, NotBoundException{
         Server server = new Server();
 
-        Interface stub = (Interface) UnicastRemoteObject.exportObject(server, 1099);
+        Interface skeleton = (Interface) UnicastRemoteObject.exportObject(server, 1099);
         Registry registry = LocateRegistry.createRegistry(1099);
-        //registry.unbind("SendMail");
-        registry.bind("SendMail", stub);
+        registry.bind("SendMail", skeleton);
         System.out.println("Server started");
     }
 }
