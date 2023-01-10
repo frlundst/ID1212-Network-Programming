@@ -12,7 +12,7 @@ import javax.mail.Store;
 
 /**
  *
- * @author myfre
+ * @author Anders Söderlund 
  */
 public class GetEmail {
 
