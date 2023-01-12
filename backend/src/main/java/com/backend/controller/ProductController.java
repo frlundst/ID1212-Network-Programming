@@ -36,27 +36,6 @@ public class ProductController {
     @GetMapping("/products/{ids}")
     public List<Product> getProducts(@PathVariable String ids, Model model) {
         List<String> idList = Arrays.asList(ids.split(","));
-        /*ArrayList<ProductWithCount> products = new ArrayList<>();
-
-        for(String id : idArray){
-            Product _p = productRepository.findById(id).get();
-            ProductWithCount product = new ProductWithCount();
-            product.setId(_p.getId());
-            product.setName(_p.getName());
-            product.setPrice(_p.getPrice());
-            product.setCount(1);
-            product.setNumberAvailable(_p.getNumberAvailable());
-            
-            for(ProductWithCount p : products){
-                if(p.getId().equals(product.getId())){
-                    product.setCount(p.getCount() + 1);
-                    products.remove(p);
-                    break;
-                }
-            }
-            products.add(product);
-        }*/
-
         return productRepository.findAllById(idList);
     }
 

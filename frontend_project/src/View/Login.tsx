@@ -37,7 +37,7 @@ function Login(props: LoginProps) {
                         localStorage.setItem("token", data.token);
                     });
                     props.setShowLogin();
-                    alert("Login success");
+                    window.location.reload();
                 }
             });
         }
