@@ -9,7 +9,9 @@ import { useNavigate } from "react-router-dom";
 
 const useStyles = createUseStyles({
     image: {
-        width: "100%",
+        maxHeight: "350px",
+        margin: "0 auto",
+        display: "block"
     },
     category: {
         color: "orange",

@@ -5,6 +5,8 @@ import { Badge, Button, Card, Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Dot from "../Components/Dot";
 import { MdHeight } from "react-icons/md";
+import CategoryElement from "../Components/CategoryElement";
+import ProductElement from "../Components/ProductElement";
 
 const useStyles = createUseStyles({
     item: {
@@ -54,53 +56,18 @@ function Category(props: CategoryProps) {
         <p>{props.category?.description}</p>
         <br/>
         {props.category?.children?.length !== 0 ? 
-            <h4 style={{textAlign: "center"}}>Subcategories</h4>
+            <h4>Subcategories</h4>
             :
-            <h4 style={{textAlign: "center"}}>Products</h4>
+            <h4>Products</h4>
         }
         <br/>
-        <Row className="justify-content-center" style={{ columnGap: "10px" }}>
+        <Row style={{ columnGap: "10px", rowGap: "10px" }}>
             {props.category?.children?.map(child => {
-                return <Col
-                    xs={3}
-                    key={child.id}
-                    className={classes.item}
-                    onClick={() => navigate(`/category/${child.id}`)}
-                >
-                    <h5>{child.name}</h5>
-                    <p>{child.description}</p>
-                </Col>
+                return <CategoryElement category={child} />
             })}
 
             {props.products?.map(product => {
-                return <Card
-                    key={product.id}
-                    style={{ width: '18rem'}}
-                >
-                    <Card.Img variant="top" src={product?.imagePathname} />
-                    <Card.Body>
-                        <Card.Title
-                            className={classes.productTitle}
-                            onClick={() => navigate(`/product/${product.id}`)}>
-                            {product.name}
-                        </Card.Title>
-                        {/*<Badge bg="danger">
-                            Sale
-            </Badge>*/}
-                        <Card.Text className={classes.productText}>
-                            
-                            {product.description}
-                            
-                        </Card.Text>
-                        
-                    </Card.Body>
-                    <Row style={{ marginTop: "flex", height: "75px"}}>
-                    <div className={classes.stockRow}> <Dot size="15px" numberAvailable={product?.numberAvailable} /> {product?.numberAvailable} in store</div>
-                        <div style={{ width: "50%", fontWeight: "bold"}}>
-                        <div className={classes.productText}>Price: {product.price} kr</div>
-                        </div>
-                        <Button style={{ width: "50%", position: "absolute", bottom: "10px", left: "50%"}} variant="primary"onClick={() => props.addToCart(product.id)}>Add to cart</Button></Row>
-                </Card>
+                return <ProductElement product={product} addToCart={props.addToCart} />
             })}
         </Row>
     </Wrapper>
