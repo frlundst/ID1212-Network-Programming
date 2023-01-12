@@ -69,20 +69,16 @@ function App() {
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
 
-  const { search } = useLocation();
-  let paramId = new URLSearchParams(search).get("promptLogin") as string;
-
-  React.useEffect(() => {
-    if (paramId === "true" && profile === null) {
-      setShowLogin(true);
-    }else{
-      setShowLogin(false);
-    }
-  }, [paramId, profile]);
+  const logout = () => {
+    localStorage.clear();
+    setprofile(null);
+    setToken(null);
+    window.location.reload();
+  }
 
   return <div>
 
-    <HeaderPresenter profile={profile} cartLength={cart.length} setShowCart={(show) => setShowCart(show)} setShowRegister={(show) => setShowRegister(show)} setShowLogin={(show) => setShowLogin(show)} />
+    <HeaderPresenter profile={profile} logoutFun={logout} cartLength={cart.length} setShowCart={(show) => setShowCart(show)} setShowRegister={(show) => setShowRegister(show)} setShowLogin={(show) => setShowLogin(show)} />
 
     <CartPresenter productIds={cart} showCart={showCart} setShowCart={() => setShowCart(false)} setProductIds={(productIds) => setCart(productIds)} />
 
@@ -120,7 +116,7 @@ function App() {
 
         <Route
           path="/checkout"
-          element={<CheckoutPresenter productIds={cart} profile={profile} setShowRegister={(show) => setShowRegister(show)} setShowLogin={(show) => setShowLogin(show)} />}
+          element={<CheckoutPresenter setShowCart={(show) => setShowCart(show)} productIds={cart} profile={profile} setShowRegister={(show) => setShowRegister(show)} setShowLogin={(show) => setShowLogin(show)} />}
         />
 
         <Route

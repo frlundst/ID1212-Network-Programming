@@ -49,6 +49,14 @@ CREATE TABLE user (
 CREATE TABLE order (
     id VARCHAR NOT NULL default uuid_generate_v1(),
     user_id VARCHAR NOT NULL,
+    date TIMESTAMP NOT NULL default now(),
+    city VARCHAR NOT NULL,
+    address VARCHAR NOT NULL,
+    zip VARCHAR NOT NULL,
+    email VARCHAR NOT NULL,
+    phone VARCHAR NOT NULL,
+    payment_method VARCHAR NOT NULL,
+    payed BOOLEAN NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES user(id)
 );
@@ -57,6 +65,7 @@ CREATE TABLE order_item (
     id VARCHAR NOT NULL default uuid_generate_v1(),
     order_id VARCHAR NOT NULL,
     product_id VARCHAR NOT NULL,
+    price INT NOT NULL,
     quantity INT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (order_id) REFERENCES order(id),
