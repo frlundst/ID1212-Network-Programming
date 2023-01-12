@@ -12,6 +12,7 @@ import RegisterPresenter from './Presenter/RegisterPresenter';
 import LoginPresenter from './Presenter/LoginPresenter';
 import CheckoutPresenter from './Presenter/CheckoutPresenter';
 import { ProfileType } from './Types';
+import SearchResultPresenter from './Presenter/SearchResultPresenter';
 
 const useStyles = createUseStyles({
   wrapper: {
@@ -122,6 +123,11 @@ function App() {
           element={<CheckoutPresenter productIds={cart} profile={profile} setShowRegister={(show) => setShowRegister(show)} setShowLogin={(show) => setShowLogin(show)} />}
         />
 
+        <Route
+          path="/searchResult/:search"
+          element={<SearchResultPresenter />}
+        />
+        
       </Routes>
     </div>
   </div>

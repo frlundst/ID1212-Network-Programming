@@ -32,9 +32,6 @@ public class CustomerController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    // @Autowired
-    // private DaoAuthenticationProvider daoAuthenticationProvider;
-
     @Autowired
     private CustomerRepository customerRepository;
 
