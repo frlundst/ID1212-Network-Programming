@@ -44,7 +44,7 @@ function Checkout(props: CheckoutProps) {
                                 <p>{product.count}</p>
                             </Col>
                             <Col>
-                                <img src={"/images/default.png"} alt={product.name} />
+                                <img src={product?.imagePathname} alt={product.name} />
                             </Col>
 
                         </Row>

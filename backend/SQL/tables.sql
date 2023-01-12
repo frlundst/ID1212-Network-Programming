@@ -32,6 +32,7 @@ CREATE TABLE product (
     price INT NOT NULL,
     number_available INT NOT NULL,
     category_id VARCHAR NOT NULL,
+    image_pathname VARCHAR NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (category_id) REFERENCES category(id)
 );

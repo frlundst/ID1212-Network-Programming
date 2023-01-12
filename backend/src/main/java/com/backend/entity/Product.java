@@ -1,13 +1,20 @@
 package com.backend.entity;
 
-import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "product")
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
     @Column(name = "name")
@@ -21,59 +28,14 @@ public class Product {
 
     @Column(name = "number_available")
     private int numberAvailable;
+    
+    @Column(name = "image_pathname")
+    private String imagePathname;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
  
     public Product() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public int getNumberAvailable() {
-        return numberAvailable;
-    }
-
-    public void setNumberAvailable(int numberAvailable) {
-        this.numberAvailable = numberAvailable;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 }

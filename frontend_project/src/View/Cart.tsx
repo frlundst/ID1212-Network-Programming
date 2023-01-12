@@ -92,7 +92,7 @@ function Cart(props: CartProps) {
                         </Row>
                     </Col>
                     <Col>
-                        <Image className={classes.image} src="/images/default.png" />
+                        <Image className={classes.image} src={product?.imagePathname} />
                     </Col>
                     <Row className={classes.total}>
                         Price: <div className={classes.priceInt}>{product.price} kr</div>

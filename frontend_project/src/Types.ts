@@ -11,6 +11,7 @@ export interface ProductType {
   name: string;
   description: string;
   price: number;
+  imagePathname: string;
   category: CategoryType;
   numberAvailable: number;
 }
