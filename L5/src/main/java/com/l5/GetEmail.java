@@ -9,11 +9,10 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Store;
-import javax.mail.internet.MimeMultipart;
 
 /**
  *
- * @author myfre
+ * @author Anders Söderlund 
  */
 public class GetEmail {
 
@@ -29,8 +28,7 @@ public class GetEmail {
             Message[] messages = inbox.getMessages();
             Message latestMessage = messages[messages.length - 1];
             System.out.println(latestMessage.getSubject());
-            MimeMultipart body = (MimeMultipart) latestMessage.getContent();
-            System.out.println(body.getBodyPart(0).getContent());
+            System.out.println(latestMessage.getContent());
         } catch (IOException | MessagingException ex) {
             Logger.getLogger(GetEmail.class.getName()).log(Level.SEVERE, null, ex);
         }
