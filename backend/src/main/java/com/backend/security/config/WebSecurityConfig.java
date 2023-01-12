@@ -53,13 +53,16 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(
                         "/categories",
+                        "/categories/search/**",
                         "/category/**",
                         "/category/*/products",
                         "/product/**",
                         "/products/**",
+                        "/products/search/**",
                         "/customer/register",
                         "/customer/login",
-                        "/login")
+                        "/login",
+                        "/createOrder")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

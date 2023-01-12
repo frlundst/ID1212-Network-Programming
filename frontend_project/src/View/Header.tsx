@@ -43,6 +43,16 @@ function Header(props: HeaderProps) {
   const classes = useStyles();
   const navigate = useNavigate();
 
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const form = event.currentTarget;
+    const search = form.elements.formBasicSearch.value;
+
+    navigate(`/searchResult/${search}`);
+  };
+
   const [categories, setCategories] = React.useState<CategoryType[]>([]);
 
   React.useEffect(() => {
@@ -75,14 +85,27 @@ function Header(props: HeaderProps) {
           </NavDropdown>
         </Nav>
 
-        <Form className="d-flex me-3">
-          <Form.Control
-            type="search"
-            placeholder="Search"
-            className="me-2"
-            aria-label="Search"
-          />
-          <Button variant="primary"><GoSearch /></Button>
+        <Form className="d-flex me-3" onSubmit={handleSubmit}>
+          <Form.Group controlId="formBasicSearch">
+            <Form.Control
+              type="search"
+              placeholder="Search"
+              className="me-2"
+              aria-label="Search"
+              style={{
+                borderRadius: "0.375rem 0 0 0.375rem"
+              }}
+            />
+          </Form.Group>
+          <Button
+            variant="primary"
+            type="submit"
+            style={{
+              borderRadius: "0 0.375rem 0.375rem 0"
+            }}
+          >
+            <GoSearch />
+          </Button>
         </Form>
 
         <Nav>

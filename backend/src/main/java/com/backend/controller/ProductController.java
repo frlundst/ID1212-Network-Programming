@@ -39,5 +39,10 @@ public class ProductController {
         return productRepository.findAllById(idList);
     }
 
+    @GetMapping("/products/search/{name}")
+    public List<Product> searchProducts(@PathVariable String name, Model model) {
+        return productRepository.findByNameContaining(name);
+    }
+
 }
 

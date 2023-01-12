@@ -2,8 +2,7 @@ package com.backend.entity;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.GenericGenerator;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,46 +17,45 @@ import lombok.Setter;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "user_id")
+    private String userId;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "date")
+    private String date;
 
-    @OneToOne
-    @JoinColumn(name = "parent_id")
-    @JsonBackReference
-    private Category parent;
-     
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<Category> children;
+    @Column(name = "city")
+    private String city;
 
-    @Column(name = "parent_id", insertable = false, updatable = false)
-    private String parent_id;
+    @Column(name = "address")
+    private String address;
 
-    //@OneToMany(mappedBy = "category")
-    //private List<SubCategory> subCategories;
+    @Column(name = "zip")
+    private String zip;
 
-    //@OneToMany
-    //@JoinColumn(name = "category_id")
-    //private List<SubCategory> subCategories;
+    @Column(name = "email")
+    private String email;
 
+    @Column(name = "phone")
+    private String phone;
 
+    @Column(name = "payment_method")
+    private String paymentMethod;
 
-    public List<Category> getChildren() {
-        return children;
+    @Column(name = "payed")
+    private boolean payed;
+
+    @OneToMany
+    @JoinColumn(name = "order_id")
+    private List<OrderItem> orderItems;
+
+    public Order(String userId) {
+        this.userId = userId;
     }
 
-    public void setChildren(List<Category> children) {
-        this.children = children;
-    }
-
-    public void addChild(Category children) {
-        this.children.add(children);
+    public Order() {
     }
 }
-

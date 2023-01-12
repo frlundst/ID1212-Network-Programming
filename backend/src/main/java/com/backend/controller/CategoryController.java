@@ -32,4 +32,9 @@ public class CategoryController {
     public List<Category> getCategories(Model model) {
         return categoryRepository.findAll();
     }
+
+    @GetMapping("categories/search/{name}")
+    public List<Category> searchCategories(@PathVariable String name, Model model) {
+        return categoryRepository.findByNameContaining(name);
+    }
 }
