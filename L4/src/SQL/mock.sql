@@ -1,5 +1,6 @@
 -- Questions
 INSERT INTO user (id, username, password) VALUES (1, "frlundst@kth.se", "hej12345");
+INSERT INTO user (id, username, password) VALUES (2, "anders@kth.se", "hej12345");
 
 INSERT INTO quiz (id, subject) VALUES (1, "Animal quiz");
 INSERT INTO quiz (id, subject) VALUES (2, "History quiz");
