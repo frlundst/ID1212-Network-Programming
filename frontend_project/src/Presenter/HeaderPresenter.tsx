@@ -8,10 +8,11 @@ interface HeaderPresenterProps {
     setShowRegister: (show: boolean) => void;
     setShowLogin: (show: boolean) => void;
     profile: ProfileType | null;
+    logoutFun: () => void;
 }
 
 function HeaderPresenter(props: HeaderPresenterProps) {
-  return <Header profile={props.profile} cartLength={props.cartLength} setShowCart={props.setShowCart} setShowRegister={props.setShowRegister} setShowLogin={props.setShowLogin} />
+  return <Header logoutFun={props.logoutFun} profile={props.profile} cartLength={props.cartLength} setShowCart={props.setShowCart} setShowRegister={props.setShowRegister} setShowLogin={props.setShowLogin} />
 }
 
 export default HeaderPresenter;

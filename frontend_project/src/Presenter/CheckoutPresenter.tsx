@@ -9,12 +9,12 @@ interface CheckoutPresenterProps {
     setShowRegister: (show: boolean) => void;
     setShowLogin: (show: boolean) => void;
     productIds: string[];
+    setShowCart: (show: boolean) => void;
 }
 
 function CheckoutPresenter(props: CheckoutPresenterProps) {
     const navigate = useNavigate();
 
-    const [total, setTotal] = React.useState(0);
     const [isValid, setIsValid] = React.useState<boolean>(true);
     const [products, setProducts] = React.useState<ProductTypeWithCount[]>([]);
 
@@ -24,7 +24,6 @@ function CheckoutPresenter(props: CheckoutPresenterProps) {
             res.then(data => {
                 data.json().then((data: ProductType[]) => {
                     const productsWithCount = data.map((product) => {
-                        setTotal(total + product.price);
                         setIsValid(true);
                         const count = props.productIds.filter((id) => id === product.id).length;
                         if (count > product.numberAvailable) {
@@ -43,7 +42,7 @@ function CheckoutPresenter(props: CheckoutPresenterProps) {
         }
     }, [props.productIds]);
 
-    return <Checkout total={total} products={products} profile={props.profile} setShowRegister={(show) => props.setShowRegister(show)} setShowLogin={(show) => props.setShowLogin(show)} />
+    return <Checkout setShowCart={props.setShowCart} products={products} profile={props.profile} setShowRegister={(show) => props.setShowRegister(show)} setShowLogin={(show) => props.setShowLogin(show)} />
 }
 
 export default CheckoutPresenter;
