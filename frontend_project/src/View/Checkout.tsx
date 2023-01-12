@@ -48,7 +48,7 @@ function Checkout(props: CheckoutProps) {
                                 <Button onClick={() => props.setShowCart(true)}>Change</Button>
                             </Col>
                             <Col>
-                                <img src={product?.imagePathname} alt={product.name} />
+                                <img src={product?.imagePathname} alt={product.name} width="200px" />
                             </Col>
 
                         </Row>

@@ -5,11 +5,12 @@ import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles({
     item: {
+        color: "black",
+        background: "white",
         border: "1px solid lightgray",
         borderRadius: "5px",
         padding: "10px",
         textAlign: "center",
-        width: "auto",
         '&:hover': {
             boxShadow: "2px 2px 5px lightgray",
             cursor: "pointer",

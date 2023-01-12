@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.entity.Order;
+import com.backend.entity.Product;
 import com.backend.model.OrderRequest;
 import com.backend.repository.CustomerRepository;
 import com.backend.repository.OrderRepository;
@@ -49,6 +50,9 @@ public class OrderController {
             order.setPhone(orderRequest.getPhone());
             order.setPayed(false);
 
+            for (Product product : orderRequest.getProducts()) {
+                
+            }
 
             //orderRepository.save(order);
             response.setStatus(200);
