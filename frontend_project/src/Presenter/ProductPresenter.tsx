@@ -15,7 +15,8 @@ function ProductPresenter(props: ProductPresenterProps) {
     React.useEffect(() => {
         const res = fetch(`http://localhost:8080/product/${id}`);
         res.then(data => {
-            data.json().then((data: ProductType) => {
+            data.json().then((data) => {
+                console.log(data);
                 setProduct(data);
             })
         })

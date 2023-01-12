@@ -12,7 +12,8 @@ const useStyles = createUseStyles({
         width: "100%",
     },
     category: {
-        color: "lightblue",
+        color: "orange",
+        textDecoration: "underline",
         '&:hover': {
             cursor: "pointer",
             textDecoration: "underline",
@@ -42,18 +43,17 @@ function Product(props: ProductProps) {
             <Col>
                 <h1>{props.product?.name}</h1>
                 <h6>
-                    Category <span className={classes.category} onClick={() => navigate(`/category/${props.product.category.id}`)}>
+                    Return to: <span className={classes.category} onClick={() => navigate(`/category/${props.product.category.id}`)}>
                         {props.product?.category?.name}
                     </span>
                 </h6>
                 <br />
-                <Image className={classes.image} src="/images/default.png" />
+                <Image className={classes.image} src={props.product?.imagePathname} />
                 <br />
                 <br />
             </Col>
             <Col style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-                <h5>Price:</h5>
-                <h1>{props.product.price} kr</h1>
+                <h1>Price: {props.product.price} kr </h1>
                 <Button
                     style={{ width: "75%" }}
                     disabled={addedToCart}
