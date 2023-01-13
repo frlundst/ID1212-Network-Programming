@@ -60,7 +60,7 @@ function ProductElement({ product, addToCart }: ProductElementProps) {
             <div style={{ width: "50%", fontWeight: "bold" }}>
                 <div className={classes.productText}>Price: {product.price} kr</div>
             </div>
-            <Button style={{ width: "50%", position: "absolute", bottom: "10px", left: "50%" }} variant="primary" onClick={() => addToCart(product.id)}>Add to cart</Button></Row>
+            <Button style={{ width: "45%", position: "absolute", bottom: "10px", left: "50%" }} variant="primary" onClick={() => addToCart(product.id)}>Add to cart</Button></Row>
     </Card>
 }
 

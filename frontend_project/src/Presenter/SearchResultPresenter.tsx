@@ -4,6 +4,7 @@ import { CategoryType, ProductType } from "../Types";
 import { useParams } from "react-router-dom";
 
 interface SearchResultPresenterProps {
+    addToCart: (productId: string) => void;
 }
 
 function SearchResultPresenter(props: SearchResultPresenterProps) {
@@ -28,7 +29,7 @@ function SearchResultPresenter(props: SearchResultPresenterProps) {
         });
     }, [search]);
 
-    return <SearchResult categories={categories} products={products} search={search as string} />
+    return <SearchResult categories={categories} products={products} search={search as string} addToCart={props.addToCart} />
 }
 
 export default SearchResultPresenter;

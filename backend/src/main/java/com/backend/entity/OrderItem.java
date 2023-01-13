@@ -14,6 +14,9 @@ import lombok.Setter;
 @Table(name = "order_item")
 public class OrderItem {
 
+    public OrderItem() {
+    }
+
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
@@ -24,11 +27,4 @@ public class OrderItem {
 
     @Column(name = "product_id")
     private String productId;
-
-    @Column(name = "price")
-    private int price;
-
-    @Column(name = "quantity")
-    private int quantity;   
-    
 }

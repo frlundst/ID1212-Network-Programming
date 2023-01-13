@@ -121,7 +121,7 @@ function App() {
 
         <Route
           path="/searchResult/:search"
-          element={<SearchResultPresenter />}
+          element={<SearchResultPresenter addToCart={addToCart} />}
         />
         
       </Routes>

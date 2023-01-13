@@ -118,6 +118,8 @@ function Checkout(props: CheckoutProps) {
                             <option value="Swish">Swish</option>
                         </Form.Select>
                     </Form.Group>
+                    <br/>
+                    <Button style={{width: "50%", margin: "0 auto", display: "block"}}>Create order</Button>
                 </Form>
             </div>
         }
