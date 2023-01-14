@@ -21,10 +21,14 @@ public class OrderItem {
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
+    
+    @Column(name = "product_id")
+    private String productId;
 
     @Column(name = "order_id")
     private String orderId;
 
-    @Column(name = "product_id")
-    private String productId;
+    @ManyToOne
+    @JoinColumn(name = "order_id", insertable = false, updatable = false)
+    private Order order;
 }

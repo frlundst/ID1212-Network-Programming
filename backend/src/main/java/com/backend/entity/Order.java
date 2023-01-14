@@ -21,8 +21,8 @@ public class Order {
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
-    @Column(name = "user_id")
-    private String userId;
+    @Column(name = "customer_id")
+    private String customerId;
 
     @Column(name = "date")
     private String date;
@@ -48,12 +48,11 @@ public class Order {
     @Column(name = "payed")
     private boolean payed;
 
-    @OneToMany
-    @JoinColumn(name = "order_id")
+    @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems;
 
-    public Order(String userId) {
-        this.userId = userId;
+    public Order(String customerId) {
+        this.customerId = customerId;
     }
 
     public Order() {

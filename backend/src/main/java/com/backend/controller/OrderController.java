@@ -1,7 +1,11 @@
 package com.backend.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,17 +45,18 @@ public class OrderController {
     public OrderController() {
     }
 
-    @PostMapping("/createOrder")
+    @PostMapping("/order/create")
     @Transactional
     public String createOrder(@RequestBody OrderRequest orderRequest, HttpServletResponse response, HttpServletRequest request) {
+        System.out.println("Create order called");
         try{
             // Get user id
             String email = jwtTokenUtil.getUsernameFromToken(request.getHeader("Authorization").substring(7));
-            String userId = customerRepository.findByEmail(email).getId();
+            String customerId = customerRepository.findByEmail(email).getId();
 
             // Ändra product quantity
             Order order = new Order();
-            order.setUserId(userId);
+            order.setCustomerId(customerId);
             order.setCity(orderRequest.getCity());
             order.setAddress(orderRequest.getAddress());
             order.setZip(orderRequest.getZip());
@@ -65,7 +70,7 @@ public class OrderController {
                 orderItem.setOrderId(order.getId());
                 orderItem.setProductId(product.getId());
                 orderItemRepository.save(orderItem);
-
+                
                 // Change number available
                 Product p = productRepository.findById(product.getId()).get();
                 productRepository.updateNumberAvailableById(product.getId(), p.getNumberAvailable() - 1);
@@ -78,5 +83,10 @@ public class OrderController {
             System.out.println(e);
             return "Error";
         }
+    }
+
+    @GetMapping("/orders/{userId}")
+    public List<Order> getOrders(@PathVariable String userId) {
+        return orderRepository.findAllByCustomerId(userId);
     }
 }
