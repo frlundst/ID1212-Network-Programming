@@ -14,6 +14,7 @@ import { ProfileType } from './Types';
 import SearchResultPresenter from './Presenter/SearchResultPresenter';
 import OrdersPresenter from './Presenter/OrdersPresenter';
 import OrderPresenter from './Presenter/OrderPresenter';
+import Footer from './Presenter/Footer';
 
 const useStyles = createUseStyles({
   wrapper: {
@@ -77,7 +78,7 @@ function App() {
     window.location.reload();
   }
 
-  return <div>
+  return <><div>
 
     <HeaderPresenter profile={profile} logoutFun={logout} cartLength={cart.length} setShowCart={(show) => setShowCart(show)} setShowRegister={(show) => setShowRegister(show)} setShowLogin={(show) => setShowLogin(show)} />
 
@@ -133,6 +134,8 @@ function App() {
       </Routes>
     </div>
   </div>
+  <Footer />
+  </>
 }
 
 export default App

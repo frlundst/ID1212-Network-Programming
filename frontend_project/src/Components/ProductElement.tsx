@@ -22,6 +22,9 @@ const useStyles = createUseStyles({
         marginTop: "10px",
         alignItems: "center",
         columnGap: "10px"
+    },
+    image: {
+        maxHeight: "200px"
     }
 })
 
@@ -40,7 +43,7 @@ function ProductElement({ product, addToCart, showAddToCart = true, showStock = 
         key={product.id}
         style={{ width: '18rem' }}
     >
-        <Card.Img height="150" variant="top" src={product?.imagePathname} />
+        <Card.Img className={classes.image} variant="top" src={product?.imagePathname} />
         <Card.Body>
             <Card.Title
                 className={classes.productTitle}
