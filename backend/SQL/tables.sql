@@ -30,6 +30,7 @@ CREATE TABLE product (
     name VARCHAR NOT NULL,
     description VARCHAR,
     price INT NOT NULL,
+    old_price INT,
     number_available INT NOT NULL,
     category_id VARCHAR NOT NULL,
     image_pathname VARCHAR NOT NULL,

@@ -26,6 +26,9 @@ public class Product {
     @Column(name = "price")
     private int price;
 
+    @Column(name = "old_price")
+    private int oldprice;
+
     @Column(name = "number_available")
     private int numberAvailable;
     

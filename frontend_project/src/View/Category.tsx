@@ -53,10 +53,10 @@ function Category(props: CategoryProps) {
 
     return <Wrapper>
         <h3>{props.category?.name} - Category</h3>
-        <p>{props.category?.description}</p>
         <br/>
         {props.category?.children?.length !== 0 ? 
-            <h4>Subcategories</h4>
+        
+            <h4><p style ={{fontSize: "50%", color: " orange"}}>{props.category?.description}</p>Subcategories</h4>
             :
             <h4>Products</h4>
         }

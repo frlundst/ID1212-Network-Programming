@@ -11,10 +11,12 @@ export interface ProductType {
   name: string;
   description: string;
   price: number;
+  oldprice: number;
   imagePathname: string;
   category: CategoryType;
   numberAvailable: number;
 }
+
 
 export interface ProfileType {
   id: string;
