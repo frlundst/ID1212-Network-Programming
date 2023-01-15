@@ -3,8 +3,7 @@ import React from 'react';
 import HeaderPresenter from './Presenter/HeaderPresenter';
 import { createUseStyles } from 'react-jss';
 import HomePresenter from './Presenter/HomePresenter';
-import { Route, Routes, useLocation } from 'react-router-dom';
-import CategoriesPresenter from './Presenter/CategoriesPresenter';
+import { Route, Routes } from 'react-router-dom';
 import CategoryPresenter from './Presenter/CategoryPresenter';
 import ProductPresenter from './Presenter/ProductPresenter';
 import CartPresenter from './Presenter/CartPresenter';
@@ -13,6 +12,8 @@ import LoginPresenter from './Presenter/LoginPresenter';
 import CheckoutPresenter from './Presenter/CheckoutPresenter';
 import { ProfileType } from './Types';
 import SearchResultPresenter from './Presenter/SearchResultPresenter';
+import OrdersPresenter from './Presenter/OrdersPresenter';
+import OrderPresenter from './Presenter/OrderPresenter';
 
 const useStyles = createUseStyles({
   wrapper: {
@@ -100,11 +101,6 @@ function App() {
         />
 
         <Route
-          path="/categories"
-          element={<CategoriesPresenter />}
-        />
-
-        <Route
           path="/category/:id"
           element={<CategoryPresenter addToCart={addToCart} />}
         />
@@ -122,6 +118,16 @@ function App() {
         <Route
           path="/searchResult/:search"
           element={<SearchResultPresenter addToCart={addToCart} />}
+        />
+
+        <Route
+          path="/orders"
+          element={<OrdersPresenter profile={profile} />}
+        />
+
+        <Route
+          path="/order/:id"
+          element={<OrderPresenter />}
         />
         
       </Routes>

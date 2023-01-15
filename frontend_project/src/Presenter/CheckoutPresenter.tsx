@@ -70,7 +70,8 @@ function CheckoutPresenter(props: CheckoutPresenterProps) {
         const res = fetch('http://localhost:8080/order/create', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
             body: JSON.stringify({
                 city: city,
@@ -85,8 +86,9 @@ function CheckoutPresenter(props: CheckoutPresenterProps) {
 
         res.then((res) => {
             if (res.status === 200) {
-                console.log(res);
-                alert("Checkout success");
+                navigate("/orders");
+                localStorage['cart'] = JSON.stringify([]);
+                window.location.reload();
             }
         });
     };

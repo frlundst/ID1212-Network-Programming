@@ -13,8 +13,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @Entity
-@Table(name = "order")
-public class Order {
+@Table(name = "customer_order")
+public class CustomerOrder {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -48,13 +48,10 @@ public class Order {
     @Column(name = "payed")
     private boolean payed;
 
-    @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItems;
-
-    public Order(String customerId) {
+    public CustomerOrder(String customerId) {
         this.customerId = customerId;
     }
 
-    public Order() {
+    public CustomerOrder() {
     }
 }
