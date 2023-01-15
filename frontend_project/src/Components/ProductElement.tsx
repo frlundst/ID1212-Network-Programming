@@ -32,7 +32,7 @@ const useStyles = createUseStyles({
         height: "15px", 
         left: "10px", 
         position: "absolute",
-        textIndent: "2px"
+        textIndent: "2px",
         columnGap: "10px"
     }
 })
