@@ -40,10 +40,30 @@ function Product(props: ProductProps) {
 
     const [addedToCart, setAddedToCart] = React.useState(false);
 
+    const [display, setDisplay] = React.useState(false);
+    const [stock, setStock] = React.useState(false);
+    React.useEffect(() => {
+        if (props.product?.oldprice === 0) {
+            setDisplay(false);
+          } else {
+            setDisplay(true);
+          }
+        }, [props.product?.oldprice]
+    );
+    React.useEffect(() => {
+        if (props.product?.numberAvailable === 0) {
+            setStock(false);
+          } else {
+            setStock(true);
+          }
+        }, [props.product?.numberAvailable]
+    );
+    const dif = props.product.oldprice - props.product.price;
+    const percent = ((dif / props.product.oldprice) * 100).toFixed();
     return <Wrapper>
         <Row>
             <Col>
-                <h1>{props.product?.name}</h1>
+                <h1>{ display ?  <p>{props.product?.name} <h2 style={{fontSize: "60%"}}>SALE: {percent}%</h2></p> : <p>{props.product?.name}</p>}</h1>
                 <h6>
                     Return to: <span className={classes.category} onClick={() => navigate(`/category/${props.product.category.id}`)}>
                         {props.product?.category?.name}
@@ -55,8 +75,8 @@ function Product(props: ProductProps) {
                 <br />
             </Col>
             <Col style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-                <h1>Price: {props.product.price} kr </h1>
-                <Button
+                <h1> <div> { display ?  <p><h5 style={{textDecorationLine: "line-through"}}>Original price: {props.product.oldprice} kr</h5>  Price: {props.product.price} kr </p> : <p>Price: {props.product.price} kr</p>}  </div></h1>
+                {stock ? <Button
                     style={{ width: "75%" }}
                     disabled={addedToCart || props.product.numberAvailable === 0}
                     onClick={() => {
@@ -65,8 +85,8 @@ function Product(props: ProductProps) {
                         setTimeout(() => {
                             setAddedToCart(false);
                         }, 2000);
-                    }}
-                >{addedToCart ? <><BsCheckLg /> Added to cart</> : "Add to cart"}</Button>
+                    }}>{addedToCart ? <><BsCheckLg /> Added to cart</> : "Add to cart"}</Button>
+                : <Button style={{ width: "75%", backgroundColor: "grey"}}>Out of Stock</Button>}
                 <div className={classes.stockRow}><Dot size="20px" numberAvailable={props.product?.numberAvailable} /> {props.product?.numberAvailable} in store</div>
 
             </Col>
