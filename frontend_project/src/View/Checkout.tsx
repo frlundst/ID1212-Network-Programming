@@ -3,6 +3,7 @@ import Wrapper from "../Components/Wrapper";
 import { ProfileType } from "../Types";
 import { ProductTypeWithCount } from "../Presenter/CartPresenter";
 import { createUseStyles } from "react-jss";
+import React from "react";
 
 const useStyles = createUseStyles({
     wrapper: {
@@ -16,13 +17,15 @@ interface CheckoutProps {
     setShowRegister: (show: boolean) => void;
     setShowLogin: (show: boolean) => void;
     products: ProductTypeWithCount[];
-    //total: number;
     setShowCart: (show: boolean) => void;
+    handleSubmit: (event: any) => void;
 }
 
 function Checkout(props: CheckoutProps) {
     const classes = useStyles();
     let total = 0;
+
+    const [success, setSuccess] = React.useState(false);
 
     return <Wrapper>
         <h1>Checkout</h1>
@@ -59,7 +62,7 @@ function Checkout(props: CheckoutProps) {
                 <p>Total: {total} kr</p>
                 <hr />
 
-                <Form className={classes.wrapper}>
+                <Form className={classes.wrapper} onSubmit={props.handleSubmit}>
 
                     <h3>Shipping</h3>
 
@@ -101,9 +104,9 @@ function Checkout(props: CheckoutProps) {
 
                     <Form.Group className="mb-3" controlId="formBasicPhone">
                         <Form.Label>Phone number</Form.Label>
-                        <Form.Control 
-                            type="text" 
-                            placeholder="Enter phone number" 
+                        <Form.Control
+                            type="text"
+                            placeholder="Enter phone number"
                             defaultValue={props.profile.phone}
                         />
                     </Form.Group>
@@ -118,6 +121,8 @@ function Checkout(props: CheckoutProps) {
                             <option value="Swish">Swish</option>
                         </Form.Select>
                     </Form.Group>
+                    <br />
+                    <Button style={{ width: "50%", margin: "0 auto", display: "block" }} type="submit">Create order</Button>
                 </Form>
             </div>
         }

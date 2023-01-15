@@ -33,13 +33,6 @@ public class Category {
     @Column(name = "parent_id", insertable = false, updatable = false)
     private String parent_id;
 
-    //@OneToMany(mappedBy = "category")
-    //private List<SubCategory> subCategories;
-
-    //@OneToMany
-    //@JoinColumn(name = "category_id")
-    //private List<SubCategory> subCategories;
-
     public Category(String name, Category parent) {
         this.name = name;
         this.parent = parent;

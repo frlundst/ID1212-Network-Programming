@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Container, Form, Nav, NavDropdown, Navbar } from "react-bootstrap";
+import { Button, Container, Form, Image, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import { createUseStyles } from "react-jss";
 import { useNavigate } from "react-router-dom";
 import { CategoryType, ProfileType } from "../Types";
@@ -15,7 +15,9 @@ const useStyles = createUseStyles({
     backdropFilter: "blur(5px)",
     WebkitDackdropFilter: "blur(5px)",
     borderBottom: "1px solid rgba(255, 255, 255, 0.3)",
-    zIndex: "5"
+    zIndex: "5",
+    paddingTop: "5px",
+    paddingBottom: "5px",
   },
   logo: {
     '&:hover': {
@@ -66,7 +68,9 @@ function Header(props: HeaderProps) {
 
   return <Navbar className={classes.wrapper} variant="dark" expand="lg">
     <Container fluid>
-      <Navbar.Brand className={classes.logo} onClick={() => navigate("/")} >E-Space</Navbar.Brand>
+      <Navbar.Brand className={classes.logo} onClick={() => navigate("/")} >
+        <Image src="/images/logo.png" height="60px" />
+        </Navbar.Brand>
 
       <Navbar.Toggle aria-controls="navbarScroll" />
 

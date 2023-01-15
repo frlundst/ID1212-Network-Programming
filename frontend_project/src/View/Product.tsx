@@ -58,7 +58,7 @@ function Product(props: ProductProps) {
                 <h1>Price: {props.product.price} kr </h1>
                 <Button
                     style={{ width: "75%" }}
-                    disabled={addedToCart}
+                    disabled={addedToCart || props.product.numberAvailable === 0}
                     onClick={() => {
                         setAddedToCart(true);
                         props.addToCart(props.product.id);

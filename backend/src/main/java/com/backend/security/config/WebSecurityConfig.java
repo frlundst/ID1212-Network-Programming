@@ -61,8 +61,7 @@ public class WebSecurityConfig {
                         "/products/search/**",
                         "/customer/register",
                         "/customer/login",
-                        "/login",
-                        "/createOrder")
+                        "/login")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

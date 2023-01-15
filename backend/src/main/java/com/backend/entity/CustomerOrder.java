@@ -13,16 +13,16 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @Entity
-@Table(name = "order")
-public class Order {
+@Table(name = "customer_order")
+public class CustomerOrder {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
 
-    @Column(name = "user_id")
-    private String userId;
+    @Column(name = "customer_id")
+    private String customerId;
 
     @Column(name = "date")
     private String date;
@@ -48,14 +48,10 @@ public class Order {
     @Column(name = "payed")
     private boolean payed;
 
-    @OneToMany
-    @JoinColumn(name = "order_id")
-    private List<OrderItem> orderItems;
-
-    public Order(String userId) {
-        this.userId = userId;
+    public CustomerOrder(String customerId) {
+        this.customerId = customerId;
     }
 
-    public Order() {
+    public CustomerOrder() {
     }
 }

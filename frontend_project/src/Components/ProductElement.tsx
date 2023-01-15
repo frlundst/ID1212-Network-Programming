@@ -22,15 +22,20 @@ const useStyles = createUseStyles({
         marginTop: "10px",
         alignItems: "center",
         columnGap: "10px"
+    },
+    image: {
+        maxHeight: "200px"
     }
 })
 
 interface ProductElementProps {
     product: ProductType;
     addToCart: (productId: string) => void;
+    showAddToCart?: boolean;
+    showStock?: boolean;
 }
 
-function ProductElement({ product, addToCart }: ProductElementProps) {
+function ProductElement({ product, addToCart, showAddToCart = true, showStock = true }: ProductElementProps) {
     const navigate = useNavigate();
     const classes = useStyles();
 
@@ -38,7 +43,7 @@ function ProductElement({ product, addToCart }: ProductElementProps) {
         key={product.id}
         style={{ width: '18rem' }}
     >
-        <Card.Img height="150" variant="top" src={product?.imagePathname} />
+        <Card.Img className={classes.image} variant="top" src={product?.imagePathname} />
         <Card.Body>
             <Card.Title
                 className={classes.productTitle}
@@ -49,18 +54,17 @@ function ProductElement({ product, addToCart }: ProductElementProps) {
             Sale
 </Badge>*/}
             <Card.Text className={classes.productText}>
-
                 {product.description.substring(0, 100) + "..."}
-
             </Card.Text>
 
         </Card.Body>
         <Row style={{ marginTop: "flex", height: "75px" }}>
-            <div className={classes.stockRow}> <Dot size="15px" numberAvailable={product?.numberAvailable} /> {product?.numberAvailable} in store</div>
+            {showStock ? <div className={classes.stockRow}> <Dot size="15px" numberAvailable={product?.numberAvailable} /> {product?.numberAvailable} in store</div> : null}
             <div style={{ width: "50%", fontWeight: "bold" }}>
                 <div className={classes.productText}>Price: {product.price} kr</div>
             </div>
-            <Button style={{ width: "50%", position: "absolute", bottom: "10px", left: "50%" }} variant="primary" onClick={() => addToCart(product.id)}>Add to cart</Button></Row>
+            {showAddToCart ? <Button style={{ width: "45%", position: "absolute", bottom: "10px", left: "50%" }} variant="primary" onClick={() => addToCart(product.id)}>Add to cart</Button> : null}
+        </Row>
     </Card>
 }
 
