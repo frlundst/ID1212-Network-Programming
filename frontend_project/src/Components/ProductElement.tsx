@@ -33,15 +33,18 @@ const useStyles = createUseStyles({
         left: "10px", 
         position: "absolute",
         textIndent: "2px"
+        columnGap: "10px"
     }
 })
 
 interface ProductElementProps {
     product: ProductType;
     addToCart: (productId: string) => void;
+    showAddToCart?: boolean;
+    showStock?: boolean;
 }
 
-function ProductElement({ product, addToCart }: ProductElementProps) {
+function ProductElement({ product, addToCart, showAddToCart = true, showStock = true }: ProductElementProps) {
     const navigate = useNavigate();
     const classes = useStyles();
     const [display, setDisplay] = React.useState(false);
@@ -70,7 +73,7 @@ function ProductElement({ product, addToCart }: ProductElementProps) {
     >
         <Card.Img height="150" variant="top" src={product?.imagePathname} />{display ? <p style={{}}>
             <h2 className={classes.scuffedbox}>SALE: {percent}%</h2></p> : <p></p>}
-        
+            
         <Card.Body>
             <Card.Title
                 className={classes.productTitle}

@@ -78,7 +78,7 @@ function Product(props: ProductProps) {
                 <h1> <div> { display ?  <p><h5 style={{textDecorationLine: "line-through"}}>Original price: {props.product.oldprice} kr</h5>  Price: {props.product.price} kr </p> : <p>Price: {props.product.price} kr</p>}  </div></h1>
                 {stock ? <Button
                     style={{ width: "75%" }}
-                    disabled={addedToCart}
+                    disabled={addedToCart || props.product.numberAvailable === 0}
                     onClick={() => {
                         setAddedToCart(true);
                         props.addToCart(props.product.id);

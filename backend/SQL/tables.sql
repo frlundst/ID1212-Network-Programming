@@ -38,7 +38,7 @@ CREATE TABLE product (
     FOREIGN KEY (category_id) REFERENCES category(id)
 );
 
-CREATE TABLE user (
+CREATE TABLE customer (
     id VARCHAR NOT NULL default uuid_generate_v1(),
     email VARCHAR NOT NULL,
     password VARCHAR NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE user (
 
 CREATE TABLE order (
     id VARCHAR NOT NULL default uuid_generate_v1(),
-    user_id VARCHAR NOT NULL,
+    customer_id VARCHAR NOT NULL,
     date TIMESTAMP NOT NULL default now(),
     city VARCHAR NOT NULL,
     address VARCHAR NOT NULL,
@@ -60,15 +60,13 @@ CREATE TABLE order (
     payment_method VARCHAR NOT NULL,
     payed BOOLEAN NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES user(id)
+    FOREIGN KEY (customer_id) REFERENCES customer(id)
 );
 
 CREATE TABLE order_item (
     id VARCHAR NOT NULL default uuid_generate_v1(),
     order_id VARCHAR NOT NULL,
     product_id VARCHAR NOT NULL,
-    price INT NOT NULL,
-    quantity INT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (order_id) REFERENCES order(id),
     FOREIGN KEY (product_id) REFERENCES product(id)
