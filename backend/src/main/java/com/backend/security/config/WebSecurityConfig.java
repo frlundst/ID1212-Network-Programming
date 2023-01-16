@@ -65,7 +65,8 @@ public class WebSecurityConfig {
                 .permitAll()
                 .requestMatchers(
                     "/category/add",
-                    "/product/add"
+                    "/product/add",
+                    "/product/sale/add"
                 ).hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()

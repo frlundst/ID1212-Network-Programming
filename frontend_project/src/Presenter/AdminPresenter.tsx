@@ -81,7 +81,39 @@ function AdminPresenter(props: AdminPresenterProps) {
 
     };
 
-    return <Admin onAddProduct={onAddProduct} onAddCategory={onAddCategory} />
+    const onAddProductSale = (event: any) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const form = event.currentTarget;
+        const name = form.elements.saleProductName.value;
+        const discount = form.elements.saleDiscount.value;
+
+        const obj = {
+            name: name,
+            discount: discount,
+        }
+
+        const res = fetch('http://localhost:8080/product/sale/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            body: JSON.stringify(obj)
+        });
+
+        res.then((res) => {
+            if (res.status === 200) {
+                alert("Product sale added");
+            } else {
+                alert("Error");
+            }
+        });
+
+    };
+
+    return <Admin onAddProductSale={onAddProductSale} onAddProduct={onAddProduct} onAddCategory={onAddCategory} />
 }
 
 export default AdminPresenter;
