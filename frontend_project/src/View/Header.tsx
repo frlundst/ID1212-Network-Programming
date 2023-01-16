@@ -116,9 +116,6 @@ function Header(props: HeaderProps) {
           <NavDropdown title={<RxAvatar className={classes.cart} />}>
             {props.profile ?
               <>
-                <NavDropdown.Item onClick={() => navigate("/profile")}>
-                  Profile
-                </NavDropdown.Item>
                 <NavDropdown.Item onClick={() => navigate("/orders")}>
                   Orders
                 </NavDropdown.Item>

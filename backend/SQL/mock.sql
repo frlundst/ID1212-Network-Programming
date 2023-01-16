@@ -1,3 +1,9 @@
+delete from customer_order_item;
+delete from customer_order;
+delete from product;
+delete from customer;
+delete from category;
+
 INSERT INTO category (name, description, parent_id) VALUES ('Gaming', 'Here you will find a great selection of gaming accessories.', NULL);
 INSERT INTO category (name, description, parent_id) VALUES ('TV', 'Here you will find a selection of TVs from some of the most popular manufacturer.', NULL);
 INSERT INTO category (name, description, parent_id) VALUES ('Computer component', 'From building your first gaming computer to creating a web server, we have the parts for you.', NULL);
@@ -32,4 +38,5 @@ INSERT INTO product (id, name, description, image_pathname, price, old_price, nu
 INSERT INTO product (id, name, description, image_pathname, price, old_price, number_available, category_id) VALUES (uuid_generate_v1(), 'Intel Core i5-13600K', 'Intel Thread Director optimizes which cores perform which tasks, so that optimal performance can be achieved in both single and multi-threaded use.', '/images/default20.png', 4279, 0, 4, (SELECT id FROM category WHERE name = 'CPU'));
 
 -- ADMIN
+-- Password: hej12345
 INSERT INTO customer (id, email, password, name, address, phone, customer_role, enabled) VALUES (uuid_generate_v1(), 'frlundst@kth.se', '$2a$10$GNebgITw7X8lSify705BEOdcEAsSurGxPa.UESwgGnenyXbTzAoQO', 'Fredrik Lundström', 'Kungsgatan 1', '0701234567', 'ADMIN', true);
