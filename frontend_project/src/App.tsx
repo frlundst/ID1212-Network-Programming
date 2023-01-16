@@ -15,6 +15,7 @@ import SearchResultPresenter from './Presenter/SearchResultPresenter';
 import OrdersPresenter from './Presenter/OrdersPresenter';
 import OrderPresenter from './Presenter/OrderPresenter';
 import Footer from './Presenter/Footer';
+import AdminPresenter from './Presenter/AdminPresenter';
 
 const useStyles = createUseStyles({
   wrapper: {
@@ -130,11 +131,16 @@ function App() {
           path="/order/:id"
           element={<OrderPresenter />}
         />
-        
+
+        <Route
+          path="/admin"
+          element={profile?.customerRole === "ADMIN" ? <AdminPresenter /> : <div><h1>You have to be an admin to view this page!</h1></div>}
+        />
+
       </Routes>
     </div>
   </div>
-  <Footer />
+    <Footer />
   </>
 }
 

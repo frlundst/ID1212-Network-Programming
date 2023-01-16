@@ -1,5 +1,0 @@
-client/ChatClient.class
-server/ClientHandler.class
-client/ReceiveMsgHandler.class
-server/ChatServer.class
-client/SendMsgHandler.class

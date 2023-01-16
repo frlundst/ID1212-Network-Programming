@@ -15,7 +15,7 @@ const useStyles = createUseStyles({
     },
     productText: {
         color: "black"
-        
+
     },
     stockRow: {
         position: "absolute",
@@ -26,11 +26,11 @@ const useStyles = createUseStyles({
         bottom: "10px"
     },
     scuffedbox: {
-        fontSize: "70%", 
-        backgroundColor: "red", 
-        width: "56px", 
-        height: "15px", 
-        left: "10px", 
+        fontSize: "70%",
+        backgroundColor: "red",
+        width: "56px",
+        height: "15px",
+        left: "10px",
         position: "absolute",
         textIndent: "2px",
         columnGap: "10px"
@@ -54,18 +54,18 @@ function ProductElement({ product, addToCart, showAddToCart = true, showStock = 
     React.useEffect(() => {
         if (product.oldprice === 0) {
             setDisplay(false);
-          } else {
+        } else {
             setDisplay(true);
-          }
-        }, [product.oldprice]
+        }
+    }, [product.oldprice]
     );
     React.useEffect(() => {
         if (product.numberAvailable === 0) {
             setStock(false);
-          } else {
+        } else {
             setStock(true);
-          }
-        }, [product.numberAvailable]
+        }
+    }, [product.numberAvailable]
     );
     return <Card
         key={product.id}
@@ -73,7 +73,7 @@ function ProductElement({ product, addToCart, showAddToCart = true, showStock = 
     >
         <Card.Img height="150" variant="top" src={product?.imagePathname} />{display ? <p style={{}}>
             <h2 className={classes.scuffedbox}>SALE: {percent}%</h2></p> : <p></p>}
-            
+
         <Card.Body>
             <Card.Title
                 className={classes.productTitle}
@@ -81,7 +81,7 @@ function ProductElement({ product, addToCart, showAddToCart = true, showStock = 
                 {product.name}
             </Card.Title>
             {
-                
+
             }
             <Card.Text className={classes.productText}>
 
@@ -90,14 +90,15 @@ function ProductElement({ product, addToCart, showAddToCart = true, showStock = 
             </Card.Text>
 
         </Card.Body>
-        <Row style={{marginTop: "flex", height: "100px" }}>
-            
-            <div style={{width: "100%", fontWeight: "bold", position: "absolute", bottom: "20px"}}>
-                <div className={classes.productText}>{ display ?  <p><p style={{fontSize: "74%", textDecorationLine: "line-through", position: "absolute", bottom: "25px"}}> Original: {product.oldprice} kr</p> Price: {product.price} kr </p> : <p>Price: {product.price} kr</p>} </div>
+        <Row style={{ marginTop: "flex", height: "100px" }}>
+
+            <div style={{ width: "100%", fontWeight: "bold", position: "absolute", bottom: "20px" }}>
+                <div className={classes.productText}>{display ? <p><p style={{ fontSize: "74%", textDecorationLine: "line-through", position: "absolute", bottom: "25px" }}> Original: {product.oldprice} kr</p> Price: {product.price} kr </p> : <p>Price: {product.price} kr</p>} </div>
             </div>
-            <div className={classes.stockRow}> <Dot size="15px" numberAvailable={product?.numberAvailable} /> {product?.numberAvailable} in store</div>
-            {stock ? <Button style={{ width: "50%", position: "absolute", bottom: "25px", left: "50%"}} variant="primary" onClick={() => addToCart(product.id)}>Add to cart</Button> : 
-            <Button style={{ width: "50%", position: "absolute", bottom: "25px", left: "50%", backgroundColor: "grey"}}>Out of Stock</Button>}</Row>
+            {showStock ? <div className={classes.stockRow}> <Dot size="15px" numberAvailable={product?.numberAvailable} /> {product?.numberAvailable} in store</div> : null}
+            {stock && showAddToCart ? <Button style={{ width: "50%", position: "absolute", bottom: "25px", left: "50%" }} variant="primary" onClick={() => addToCart(product.id)}>Add to cart</Button> :
+                null}
+        </Row>
     </Card>
 }
 

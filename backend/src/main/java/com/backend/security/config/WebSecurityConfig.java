@@ -63,6 +63,10 @@ public class WebSecurityConfig {
                         "/customer/login",
                         "/login")
                 .permitAll()
+                .requestMatchers(
+                    "/category/add",
+                    "/product/add"
+                ).hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()

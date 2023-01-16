@@ -37,9 +37,6 @@ function Order(props: OrderProps) {
         <hr />
         <h4>Total: <Badge bg="success" >{total} kr</Badge></h4>
         <hr />
-        <h4>Settings</h4>
-        <br />
-        <Button variant="danger" >Remove order</Button>
     </Wrapper>
 }
 

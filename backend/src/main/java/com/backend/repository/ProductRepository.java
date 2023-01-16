@@ -21,4 +21,8 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     @Modifying
     @Query("UPDATE Product SET numberAvailable = ?2 WHERE id = ?1")
     void updateNumberAvailableById(String id, int numberAvailable);
+
+    @Modifying
+    @Query("INSERT INTO Product (name, description, imagePathname, price, oldprice, numberAvailable, categoryId) VALUES (?1, ?2, ?3, ?4, ?5, ?6, (SELECT id FROM Category WHERE name = ?7))")
+    void saveWithCategory(String name, String description, String imagePathname, double price, double oldPrice, int numberAvailable, String categoryName);
 }

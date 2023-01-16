@@ -1,4 +1,4 @@
-import { Button, Col, Image, Row } from "react-bootstrap";
+import { Badge, Button, Col, Image, Row } from "react-bootstrap";
 import Wrapper from "../Components/Wrapper";
 import { ProductType } from "../Types";
 import { createUseStyles } from "react-jss";
@@ -45,37 +45,43 @@ function Product(props: ProductProps) {
     React.useEffect(() => {
         if (props.product?.oldprice === 0) {
             setDisplay(false);
-          } else {
+        } else {
             setDisplay(true);
-          }
-        }, [props.product?.oldprice]
+        }
+    }, [props.product?.oldprice]
     );
     React.useEffect(() => {
         if (props.product?.numberAvailable === 0) {
             setStock(false);
-          } else {
+        } else {
             setStock(true);
-          }
-        }, [props.product?.numberAvailable]
+        }
+    }, [props.product?.numberAvailable]
     );
     const dif = props.product.oldprice - props.product.price;
     const percent = ((dif / props.product.oldprice) * 100).toFixed();
     return <Wrapper>
         <Row>
             <Col>
-                <h1>{ display ?  <p>{props.product?.name} <h2 style={{fontSize: "60%"}}>SALE: {percent}%</h2></p> : <p>{props.product?.name}</p>}</h1>
+                <h1>
+                    {props.product?.name}
+                </h1>
+                
                 <h6>
                     Return to: <span className={classes.category} onClick={() => navigate(`/category/${props.product.category.id}`)}>
                         {props.product?.category?.name}
                     </span>
                 </h6>
+                <h3>
+                    {display ? <Badge bg="danger">SALE: {percent}%</Badge> : null}
+                </h3>
                 <br />
                 <Image className={classes.image} src={props.product?.imagePathname} />
                 <br />
                 <br />
             </Col>
             <Col style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-                <h1> <div> { display ?  <p><h5 style={{textDecorationLine: "line-through"}}>Original price: {props.product.oldprice} kr</h5>  Price: {props.product.price} kr </p> : <p>Price: {props.product.price} kr</p>}  </div></h1>
+                <h1> <div> {display ? <p><h5 style={{ textDecorationLine: "line-through" }}>Original price: {props.product.oldprice} kr</h5>  Price: {props.product.price} kr </p> : <p>Price: {props.product.price} kr</p>}  </div></h1>
                 {stock ? <Button
                     style={{ width: "75%" }}
                     disabled={addedToCart || props.product.numberAvailable === 0}
@@ -86,7 +92,7 @@ function Product(props: ProductProps) {
                             setAddedToCart(false);
                         }, 2000);
                     }}>{addedToCart ? <><BsCheckLg /> Added to cart</> : "Add to cart"}</Button>
-                : <Button style={{ width: "75%", backgroundColor: "grey"}}>Out of Stock</Button>}
+                    : <Button style={{ width: "75%", backgroundColor: "grey" }}>Out of Stock</Button>}
                 <div className={classes.stockRow}><Dot size="20px" numberAvailable={props.product?.numberAvailable} /> {props.product?.numberAvailable} in store</div>
 
             </Col>

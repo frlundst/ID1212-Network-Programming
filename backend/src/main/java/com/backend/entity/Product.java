@@ -35,6 +35,9 @@ public class Product {
     @Column(name = "image_pathname")
     private String imagePathname;
 
+    @Column(name = "category_id", insertable=false, updatable=false)
+    private String categoryId;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;

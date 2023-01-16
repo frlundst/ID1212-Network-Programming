@@ -24,6 +24,7 @@ export interface ProfileType {
   email: string;
   phone: string;
   address: string;
+  customerRole: string;
 }
 
 export interface OrderType {

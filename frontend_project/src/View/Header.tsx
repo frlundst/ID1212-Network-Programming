@@ -70,7 +70,7 @@ function Header(props: HeaderProps) {
     <Container fluid>
       <Navbar.Brand className={classes.logo} onClick={() => navigate("/")} >
         <Image src="/images/logo.png" height="60px" />
-        </Navbar.Brand>
+      </Navbar.Brand>
 
       <Navbar.Toggle aria-controls="navbarScroll" />
 
@@ -122,6 +122,10 @@ function Header(props: HeaderProps) {
                 <NavDropdown.Item onClick={() => navigate("/orders")}>
                   Orders
                 </NavDropdown.Item>
+                {props.profile?.customerRole === "ADMIN" ?
+                  <NavDropdown.Item onClick={() => navigate("/admin")}>
+                    Admin
+                  </NavDropdown.Item> : null}
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={() => props.logoutFun()}>
                   Logout

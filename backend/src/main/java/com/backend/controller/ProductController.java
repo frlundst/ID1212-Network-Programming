@@ -8,10 +8,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.entity.Product;
+import com.backend.model.AddProductRequest;
 import com.backend.repository.ProductRepository;
+
+import jakarta.transaction.Transactional;
 
 @CrossOrigin(origins = {"http://127.0.0.1:5173", "http://localhost:5173"})
 @RestController
@@ -44,5 +49,11 @@ public class ProductController {
         return productRepository.findByNameContaining(name);
     }
 
+    @PostMapping("/product/add")
+    @Transactional
+    public String addProduct(@RequestBody AddProductRequest apr) {
+        productRepository.saveWithCategory(apr.getName(), apr.getDescription(), apr.getImagePathname(), apr.getPrice(), apr.getOldPrice(), apr.getNumberAvailable(), apr.getCategoryName());
+        return "Success";
+    }
 }
 

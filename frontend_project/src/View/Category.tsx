@@ -12,16 +12,17 @@ interface CategoryProps {
 
 function Category(props: CategoryProps) {
     return <Wrapper>
-        <h3>{props.category?.name} - Category</h3>
-        <br/>
+        <h1>{props.category?.name} - Category</h1>
+        <p style ={{color: " orange"}}>{props.category?.description}</p>
+        <hr/>
         {props.category?.children?.length !== 0 ? 
         
-            <h4><p style ={{fontSize: "50%", color: " orange"}}>{props.category?.description}</p>Subcategories</h4>
+            <h4>Subcategories</h4>
             :
             <h4>Products</h4>
         }
         <br/>
-        <Row style={{ columnGap: "10px", rowGap: "10px" }}>
+        <Row style={{ margin: "0", columnGap: "10px", rowGap: "10px" }}>
             {props.category?.children?.map(child => {
                 return <CategoryElement key={child.id} category={child} />
             })}
