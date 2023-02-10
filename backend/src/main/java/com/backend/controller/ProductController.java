@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.entity.Product;
 import com.backend.model.AddProductRequest;
+import com.backend.model.AddProductSaleRequest;
 import com.backend.repository.ProductRepository;
 
 import jakarta.transaction.Transactional;
@@ -53,6 +54,16 @@ public class ProductController {
     @Transactional
     public String addProduct(@RequestBody AddProductRequest apr) {
         productRepository.saveWithCategory(apr.getName(), apr.getDescription(), apr.getImagePathname(), apr.getPrice(), apr.getOldPrice(), apr.getNumberAvailable(), apr.getCategoryName());
+        return "Success";
+    }
+
+    @PostMapping("/product/sale/add")
+    @Transactional
+    public String addProductSale(@RequestBody AddProductSaleRequest apsr) {
+        System.out.println(apsr.getDiscount());
+        double discount = (double) apsr.getDiscount() / 100;
+        System.out.println(discount);
+        productRepository.addSale(discount, apsr.getName());
         return "Success";
     }
 }

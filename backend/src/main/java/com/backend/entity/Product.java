@@ -24,10 +24,10 @@ public class Product {
     private String description;
 
     @Column(name = "price")
-    private int price;
+    private double price;
 
     @Column(name = "old_price")
-    private int oldprice;
+    private double oldprice;
 
     @Column(name = "number_available")
     private int numberAvailable;
